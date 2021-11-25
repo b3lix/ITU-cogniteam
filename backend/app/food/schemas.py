@@ -1,10 +1,16 @@
 # Pydantic related imports
-from typing import Optional
-from pydantic import BaseModel, constr
+from typing import Optional, List
+from pydantic import BaseModel, constr, conint
 
 # App related imports
 from app.entities.food import FoodType
-from app.reviews.schemas import CreateModel as ReviewCreateModel
+
+class ReviewCreateModel(BaseModel):
+    description: Optional[constr(strip_whitespace=True, min_length=2)]
+    positive_points: List[constr(strip_whitespace=True, min_length=2)]
+    negative_points: List[constr(strip_whitespace=True, min_length=2)]
+    price: Optional[conint(gt=0)]
+    rating: conint(ge=0, le=10)
 
 class CreateModel(BaseModel):
     name: constr(strip_whitespace=True, min_length=2)
