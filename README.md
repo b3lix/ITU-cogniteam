@@ -1,2 +1,2 @@
 # ITU-cogniteam
-Repository for ITU project @ VUT FIT
+Repository for ITU project @ BUT FIT
