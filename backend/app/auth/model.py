@@ -22,6 +22,7 @@ def create_user(username: str, password: str) -> User:
     user = User(username=username, password=generate_password_hash(password))
     session.add(user)
     session.commit()
+    session.refresh(user)
     return user
 
 def authenticate(username: str, password: str) -> User:

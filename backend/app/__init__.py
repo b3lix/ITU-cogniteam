@@ -55,4 +55,10 @@ def create_app():
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix="/auth")
 
+    from app.food import bp as food_bp
+    app.register_blueprint(food_bp, url_prefix="/food")
+
+    from app.reviews import bp as reviews_bp
+    app.register_blueprint(reviews_bp, url_prefix="/reviews")
+
     return app
