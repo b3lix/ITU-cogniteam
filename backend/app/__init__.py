@@ -40,6 +40,11 @@ def create_app():
     app = Flask(__name__)
     app.secret_key = SECRET_KEY
 
+    @app.after_request 
+    def after_request_callback(response):
+        session.close()
+        return response
+
     # Setup CORS
     CORS(app, supports_credentials=True)
 

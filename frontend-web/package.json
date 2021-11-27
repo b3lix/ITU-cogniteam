@@ -11,7 +11,8 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "cookie-universal-nuxt": "^2.1.5",
-    "nuxt": "^2.15.8"
+    "nuxt": "^2.15.8",
+    "vue-lodash": "^2.1.2"
   },
   "devDependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.15.4",

@@ -18,3 +18,4 @@ class Food(Base):
     source: str       = Column(String(128))
     description: str  = Column(String(128), nullable=True)
     type: FoodType    = Column(Enum(FoodType))
+    barcode: int      = Column(Integer, nullable=True)

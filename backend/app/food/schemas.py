@@ -17,8 +17,9 @@ class CreateModel(BaseModel):
     source: constr(strip_whitespace=True, min_length=2)
     description: Optional[constr(strip_whitespace=True, min_length=2)]
     type: FoodType
+    barcode: Optional[conint(ge=0)]
     review: ReviewCreateModel
 
 class FilterModel(BaseModel):
     type: Optional[FoodType]
-    value: str
+    value: Optional[constr(strip_whitespace=True)] = ""

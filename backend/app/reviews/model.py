@@ -26,8 +26,47 @@ def create_review(description: str, positive_points: List[str], negative_points:
     session.refresh(review)
     return review
 
+def update_review(id: int, description: str, positive_points: List[str], negative_points: List[str], price: int, rating: int) -> None:
+    """Update review in database
+
+    :param description:     Review description
+    :param positive_points: List of positive points
+    :param negative_points: List of negative points
+    :param price:           Price that was the meal bought for
+    :param rating:          User rating, 0-10
+
+    :return:                Created review
+    """
+    review: Review = Review.query.get(id)
+
+    if review == None:
+        return
+    
+    review.description = description
+    review.positive_points = positive_points
+    review.negative_points = negative_points
+    review.price = price
+    review.rating = rating
+    review.date = date.today()
+    session.commit()
+
 def get_reviews(food: int) -> Review:
     return session.query(Review)\
         .join(Food)\
         .filter(Food.id == food)\
+        .order_by(Review.date.desc())\
         .all()
+
+def get_user_reviews(user: int) -> Review:
+    return session.query(Review)\
+        .join(Food)\
+        .filter(Review.user_id == user)\
+        .order_by(Review.date.desc())\
+        .all()
+
+def get_user_review(food: int, user: int) -> Review:
+    return session.query(Review)\
+        .join(Food)\
+        .filter(Review.user_id == user)\
+        .filter(Food.id == food)\
+        .first()

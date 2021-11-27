@@ -1,7 +1,7 @@
 # Flask related imports
 from flask_login.utils import logout_user
 from flask_pydantic import validate
-from flask_login import login_user
+from flask_login import login_user, login_required, current_user
 
 # App related imports
 from app import make_response
@@ -35,3 +35,10 @@ def login(body: LoginModel):
 def logout():
     logout_user()
     return make_response(200)
+
+@bp.route("/info", methods=["GET"])
+@login_required
+def info():
+    return make_response(200, data={
+        "username": current_user.username
+    })
