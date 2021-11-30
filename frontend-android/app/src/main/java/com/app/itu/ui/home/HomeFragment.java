@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.app.itu.Singleton;
 import com.app.itu.VolleyJsonRequest;
 import com.app.itu.databinding.FragmentHomeBinding;
 
@@ -112,8 +113,8 @@ public class HomeFragment extends Fragment implements VolleyJsonRequest.Response
     }
 
     private void postMethod(){
+        RequestQueue queue = Volley.newRequestQueue(this.getContext());
         VolleyJsonRequest jsonRequest = null;
-
         try {
             jsonRequest = new VolleyJsonRequest(Request.Method.POST,url, new JSONObject(requestBody),this);
             queue.add(jsonRequest.get());
@@ -133,9 +134,11 @@ public class HomeFragment extends Fragment implements VolleyJsonRequest.Response
                 cookieHeader = header.getValue().split(";")[0];
             }
         }
-        if (object != null){
+        if (object != null)
+        {
             // todo handle json
-        }else if (array != null){
+        }
+        else if (array != null){
         }
         getMethod();
     }
