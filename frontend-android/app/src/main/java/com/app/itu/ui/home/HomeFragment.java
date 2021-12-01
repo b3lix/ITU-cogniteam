@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment implements VolleyJsonRequest.Response
             @Override
             public void onClick(View view)
             {
-
+                Singleton test = Singleton.getInstance();
                 queue = Volley.newRequestQueue(view.getContext());
                 postMethod();
             }
