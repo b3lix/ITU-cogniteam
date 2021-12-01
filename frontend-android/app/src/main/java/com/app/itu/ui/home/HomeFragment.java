@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,11 +31,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeFragment extends Fragment{
+public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -61,13 +64,28 @@ public class HomeFragment extends Fragment{
             }
         });
 
-//        final TextView textView = binding.textHome;
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
+        ListView listView = (ListView) binding.listView;
+        List list = new ArrayList();
+
+        list.add("ahoj");
+        list.add("asd");
+        list.add("fre");
+        list.add("dsf");
+        list.add("ahsdfsdfj");
+        list.add("asdfsdfj");
+        list.add("asdfsdfoj");
+        list.add("ahsdddj");
+        list.add("ah123oj");
+        list.add("a4334hoj");
+        list.add("ah53353oj");
+        list.add("ah234234o");
+        list.add("asdfsdfj");
+        list.add("dsf");
+        list.add("ahoj");
+
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(adapter);
+
         return root;
     }
 
