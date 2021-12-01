@@ -5,12 +5,15 @@ public class Singleton {
     public String var0;
     public String var1;
     public String var2;
+
     public String requestBody;
+    public String operation;
     public String url;
     public String cookieHeader;
-
+    public String jsonOut;
     private Singleton()
     {
+        operation = "";
         requestBody = "{\n" +
             "  \"username\":\"admin\",\n" +
             "  \"password\":\"admin\",\n" +
@@ -22,6 +25,7 @@ public class Singleton {
 
     public void setUrlOperation(String operation)
     {
+        this.operation = operation;
         if (url.length() != 30)
         {
             url = url.substring(0, 30);

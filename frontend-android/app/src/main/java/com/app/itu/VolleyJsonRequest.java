@@ -118,11 +118,8 @@ public class VolleyJsonRequest {
         }
     }
 
-    public interface ResponseListener
-    {
+    public interface ResponseListener {
         void onResponse(int statusCode, List<Header> headers, JSONObject object, JSONArray array) throws JSONException;
 
     }
-
-
 }

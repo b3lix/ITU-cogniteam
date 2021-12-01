@@ -11,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.app.itu.ui.home.HomeFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,17 +30,23 @@ public class JsonRequest implements VolleyJsonRequest.ResponseListener{
 
     }
 
-    public void getMethod(Context context)
+    public void getMethod(Context context, final VolleyCallBack volleyCallBack)
     {
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = "https://travelwise.online:8090/auth/info";
-        StringRequest getRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest getRequest = new StringRequest(Request.Method.GET, Singleton.getInstance().url,
                 new Response.Listener<String>()
                 {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(String response)
+                    {
                         // response
                         Log.d("Response", response);
+                        Singleton.getInstance().jsonOut = response;
+                        try {
+                            volleyCallBack.onSuccess();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener()
@@ -91,6 +98,10 @@ public class JsonRequest implements VolleyJsonRequest.ResponseListener{
         }
         else if (array != null){
         }
-        getMethod(this.context);
+    }
+
+    public interface VolleyCallBack
+    {
+        void onSuccess() throws JSONException;
     }
 }
