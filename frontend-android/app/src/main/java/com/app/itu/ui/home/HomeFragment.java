@@ -54,7 +54,8 @@ public class HomeFragment extends Fragment{
             @Override
             public void onClick(View view)
             {
-
+                // login example
+                Singleton.getInstance().setUrlOperation("/auth/login");
                 jsonRequest.postMethod(view.getContext());
 
             }

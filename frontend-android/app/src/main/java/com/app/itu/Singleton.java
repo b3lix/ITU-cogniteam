@@ -1,7 +1,5 @@
 package com.app.itu;
 
-import java.io.Console;
-
 public class Singleton {
     private static Singleton singleton;
     public String var0;
@@ -19,7 +17,16 @@ public class Singleton {
             "  \"Content-Type\":\"application/json\",\n"+
             "  \"skipCrossSell\":true\n" +
             "}";
-        url = "https://travelwise.online:8090/auth/login";
+        url = "https://travelwise.online:8090";
+    }
+
+    public void setUrlOperation(String operation)
+    {
+        if (url.length() != 30)
+        {
+            url = url.substring(0, 30);
+        }
+        url = url + operation;
     }
 
     public static Singleton getInstance()
