@@ -41,7 +41,7 @@ def get(query: FilterModel):
             "description": food[0].description,
             "reviews": food[1],
             "average": {
-                "price": round(food[3]),
+                "price": round(food[3]) if food[3] != None else None,
                 "rating": float(round(food[2], 1))
             }     
         } for food in get_food(query, user)]
@@ -62,7 +62,7 @@ def get_one(food_id: int):
         "description": food[0].description,
         "reviews": food[1],
         "average": {
-            "price": round(food[3]),
+            "price": round(food[3]) if food[3] != None else None,
             "rating": float(round(food[2], 1))
         }
     })
