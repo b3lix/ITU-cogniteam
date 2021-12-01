@@ -3,6 +3,8 @@ package com.app.itu;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -18,10 +20,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.itu.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    ListView listView;
+    List list = new ArrayList();
+    ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,28 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        setContentView(R.layout.fragment_home);
+        listView = (ListView) findViewById(R.id.listView);
+
+        list.add("ahoj");
+        list.add("asd");
+        list.add("fre");
+        list.add("dsf");
+        list.add("ahsdfsdfj");
+        list.add("asdfsdfj");
+        list.add("asdfsdfoj");
+        list.add("ahsdddj");
+        list.add("ah123oj");
+        list.add("a4334hoj");
+        list.add("ah53353oj");
+        list.add("ah234234o");
+        list.add("asdfsdfj");
+        list.add("dsf");
+        list.add("ahoj");
+
+        adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(adapter);
     }
 
     @Override
