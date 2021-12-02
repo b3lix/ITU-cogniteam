@@ -1,5 +1,5 @@
 <template>
-  <b-container v-if="loaded" style="width: 700px;">
+  <b-container v-if="loaded">
     <div>
       <b-navbar toggleable="lg">
         <b-navbar-brand to="/">Domov</b-navbar-brand>
@@ -8,8 +8,8 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item to="/food/create">Pridat jedlo</b-nav-item>
-            <b-nav-item to="/reviews">Moje recenzie</b-nav-item>
+            <b-nav-item to="/food/create" :disabled="$store.state.user.info == null">Pridat jedlo</b-nav-item>
+            <b-nav-item to="/reviews" :disabled="$store.state.user.info == null">Moje recenzie</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->

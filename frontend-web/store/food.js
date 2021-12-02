@@ -4,6 +4,8 @@ export const state = () => ({
         type: 0
     },
 
+    ascending: true,
+
     items: []
 });
   
@@ -22,5 +24,8 @@ export const mutations = {
 
         if(item != null)
             item.favourite = (item.favourite == null ? true : null);
+    },
+    toggleSort(state) {
+        state.ascending = !state.ascending;
     }
 };

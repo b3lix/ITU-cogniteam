@@ -4,33 +4,39 @@
       {{ error }}
     </b-alert>
     <b-form method="GET" @submit.prevent="search">
-      <b-form-group>
-        <b-form-input v-model="formData.value" type="text" placeholder="Nazov/Zdroj/Ciarovy kod"></b-form-input>
-      </b-form-group>
-      <b-form-group>
-        <label>Typ jedla:</label>
-        <b-select v-model="formData.type">
+      <b-input-group>
+        <b-form-input v-model="formData.value" type="text" placeholder="Vyhľadávanie podľa Názvu / Zdroju / Čiarového kódu" @keyup="search"></b-form-input>
+        <b-select v-model="formData.type" @change="search">
             <option value="0">Polotovar</option>
             <option value="1">Restauracia</option>
         </b-select>
-      </b-form-group>
-
-      <b-button type="submit" variant="primary">Hladaj</b-button>
+        <b-input-group-append>
+          <b-button variant="primary" type="button" @click="$store.commit('food/toggleSort'); search()"><font-awesome-icon :icon="$store.state.food.ascending ? 'sort-amount-down' : 'sort-amount-up'"></font-awesome-icon></b-button>
+          <b-button variant="primary" type="submit"><font-awesome-icon icon="search"></font-awesome-icon></b-button>
+        </b-input-group-append>
+      </b-input-group>
     </b-form>
     <hr>
-    <div v-for="meal in $store.state.food.items" :key="meal.id">
-      <div><b-link :to="'/food/' + meal.id">{{meal.source}} - {{ meal.name }}</b-link>
-      <span @click="favourite(meal.id)">
+    <template v-if="$store.state.food.items.length == 0">
+      <b-alert variant="info" show>
+        Nenašli sa žiadne položky
+      </b-alert>
+      <hr>
+    </template>
+    <div v-for="meal in ($store.state.food.ascending ? $store.state.food.items : _.clone($store.state.food.items).reverse())" :key="meal.id">
+      <div><b-link :to="'/food/' + meal.id"><strong>{{meal.source}} - {{ meal.name }}</strong></b-link>
+      <span @click="favourite(meal.id)" v-if="$store.state.user.info != null">
         <template v-if="meal.favourite == null">
-          <font-awesome-icon icon="star"></font-awesome-icon>
+          <font-awesome-icon icon="star" style="color: grey; float: right;"></font-awesome-icon>
         </template>
         <template v-else>
-          <font-awesome-icon icon="star" style="color: yellow;"></font-awesome-icon>
+          <font-awesome-icon icon="star" style="color: yellow; float: right;"></font-awesome-icon>
         </template>
       </span>
       </div>
-      <div><strong>Priemerna cena:</strong> {{ meal.average.price}}e</div>
-      <div><strong>Priemerne hodnotenie:</strong> {{ meal.average.rating }}/10</div>
+      <div>Recenzií: {{ meal.reviews }}</div>
+      <div><i>Priemerná cena:</i> <font-awesome-icon icon="dollar-sign"></font-awesome-icon> <strong>{{ meal.average.price}} Kč</strong></div>
+      <div><i>Priemerné hodnotenie:</i> <font-awesome-icon icon="star"></font-awesome-icon> <strong>{{ meal.average.rating }}/10</strong></div>
       <hr>
     </div>
   </b-container>
@@ -47,6 +53,8 @@ export default {
       error: null,
 
       formData: this.$_.cloneDeep(this.$store.state.food.filter),
+
+      ascending: true
     }
   },
   async beforeMount() {
@@ -54,6 +62,7 @@ export default {
   },
   methods: {
     search() {
+      console.log("wtf");
       this.error = null;
 
       this.$store.commit("food/clear");
