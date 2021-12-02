@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment {
                 expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
                 expandableListView.setAdapter(expandableListAdapter);
             }
-        });
+        }, true);
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override

@@ -7,8 +7,11 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 
@@ -19,7 +22,7 @@ public class AddItemActivity extends AppCompatActivity
     EditText getFoodType;
     EditText getFoodDescription;
     EditText getFoodReviewMsg;
-    EditText getFoodReviewRating;
+    RatingBar getFoodReviewRating;
     EditText getFoodReviewRatingNeg;
     EditText getFoodReviewRatingPos;
 
@@ -86,11 +89,8 @@ public class AddItemActivity extends AppCompatActivity
                     getFoodReviewMsg.setError("This field cannot be empty!");
                     isValid = false;
                 }
-                Editable getFoodReviewRatingText = getFoodReviewRating.getText();
-                if (getFoodReviewRatingText.toString().isEmpty())
-                {
-                    getFoodReviewRating.setError("This field cannot be empty!");
-                }
+                Float getFoodReviewRatingText = getFoodReviewRating.getRating();
+
                 Editable getFoodReviewRatingNegText = getFoodReviewRatingNeg.getText();
                 if (getFoodReviewRatingNegText.toString().isEmpty())
                 {
