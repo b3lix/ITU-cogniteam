@@ -16,14 +16,16 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity
+{
 
     EditText username;
     EditText password;
     Button login;
     JsonRequest jsonRequest = new JsonRequest();
 
-    private void setupUI() {
+    private void setupUI()
+    {
         username = findViewById(R.id.editTextTextPersonName);
         password = findViewById(R.id.editTextTextPassword);
         login = findViewById(R.id.activityButtonLogin);
@@ -70,12 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                             @SuppressLint("SetTextI18n")
                             @Override
                             public void onSuccess() throws JSONException {
-                                Snackbar snack = Snackbar.make(v, "OK Logged in!", Snackbar.LENGTH_LONG);
-                                View view = snack.getView();
-                                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
-                                params.gravity = Gravity.TOP;
-                                view.setLayoutParams(params);
-                                snack.show();
 
                                 String stringToPassBack = "Logged in";
                                 Intent intent = new Intent();
