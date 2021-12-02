@@ -24,13 +24,20 @@ public class ExpandableListDataPump {
                 JSONObject average = object.getJSONObject("average");
                 String averagePrice = average.get("price").toString();
                 String averageRating = average.get("rating").toString();
-                String favourite = object.get("favourite").toString();
+
 
                 foodInfo.add(String.format("Zdroj: %s", foodSource));
                 foodInfo.add(String.format("Počet recenzií: %s", numberOfReviews));
                 foodInfo.add(String.format("Priemerná cena: %s", averagePrice));
                 foodInfo.add(String.format("Priemerné hodnotenie: %s/10.00", averageRating));
-                foodInfo.add(String.format(favourite));
+
+                String favourite = object.get("favourite").toString();
+                if (favourite.equals("null")) {
+                    foodInfo.add("PRIDAŤ DO OBĽÚBENÝCH");
+                }
+                else {
+                    foodInfo.add("OBĽÚBENÉ");
+                }
 
                 expandableListDetail.put(foodName, foodInfo);
 
