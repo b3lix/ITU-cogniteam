@@ -67,23 +67,19 @@ public class JsonRequest implements VolleyJsonRequest.ResponseListener{
         queue.add(getRequest);
     }
 
-    public void postMethod(Context context)
-    {
+    public void postMethod(Context context,  final VolleyCallBack volleyCallBack) throws JSONException {
         this.context = context;
         RequestQueue queue = Volley.newRequestQueue(context);
         VolleyJsonRequest jsonRequest = null;
-        try {
-            jsonRequest = new VolleyJsonRequest(Request.Method.POST,Singleton.getInstance().url, new JSONObject(Singleton.getInstance().requestBody), this);
-            queue.add(jsonRequest.get());
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
+
+        JSONObject jsonObject = new JSONObject(Singleton.getInstance().requestBody);
+        jsonRequest = new VolleyJsonRequest(Request.Method.POST,Singleton.getInstance().url,jsonObject, this, volleyCallBack);
+        queue.add(jsonRequest.get());
+
     }
 
     @Override
-    public void onResponse(int statusCode, List<Header> headers, JSONObject object, JSONArray array) {
+    public void onResponse(int statusCode, List<Header> headers, JSONObject object, JSONArray array, VolleyCallBack volleyCallBack) throws JSONException {
         Log.e(TAG,"-------------------------------");
         for(Header header: headers){
             Log.e(TAG,"Name " + header.getName() + " Value " + header.getValue());
@@ -92,6 +88,7 @@ public class JsonRequest implements VolleyJsonRequest.ResponseListener{
                 Singleton.getInstance().cookieHeader = header.getValue().split(";")[0];
             }
         }
+        volleyCallBack.onSuccess();
         if (object != null)
         {
             // todo handle json
