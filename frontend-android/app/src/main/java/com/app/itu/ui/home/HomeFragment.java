@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.app.itu.AddItemActivity;
 import com.app.itu.JsonRequest;
 import com.app.itu.R;
 import com.app.itu.Singleton;
@@ -107,7 +108,7 @@ public class HomeFragment extends Fragment {
         binding.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), GalleryFragment.class);
+                Intent myIntent = new Intent(view.getContext(), AddItemActivity.class);
                 startActivityForResult(myIntent, SECOND_ACTIVITY_REQUEST_CODE);
 
 
