@@ -9,9 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ExpandableListDataPump {
-    public static HashMap<String, List<String>> getData(JSONArray jsonArray) {
-        HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
+    public HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
 
+    public HashMap<String, List<String>> getData(JSONArray jsonArray)
+    {
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
                 JSONObject object = jsonArray.getJSONObject(i);
@@ -37,6 +38,13 @@ public class ExpandableListDataPump {
                 e.printStackTrace();
             }
         }
+        return expandableListDetail;
+    }
+
+    public HashMap<String, List<String>> refreshData(JSONArray jsonArray)
+    {
+        expandableListDetail.clear();
+        expandableListDetail = getData(jsonArray);
         return expandableListDetail;
     }
 }

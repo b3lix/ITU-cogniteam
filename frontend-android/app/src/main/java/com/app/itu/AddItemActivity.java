@@ -18,7 +18,11 @@ public class AddItemActivity extends AppCompatActivity
     EditText getFoodSource;
     EditText getFoodType;
     EditText getFoodDescription;
-    EditText getFoodReview;
+    EditText getFoodReviewMsg;
+    EditText getFoodReviewRating;
+    EditText getFoodReviewRatingNeg;
+    EditText getFoodReviewRatingPos;
+
     Button setFood;
 
     JsonRequest jsonRequest = new JsonRequest();
@@ -29,7 +33,11 @@ public class AddItemActivity extends AppCompatActivity
         getFoodSource = findViewById(R.id.editTextTextFoodSource);
         getFoodType = findViewById(R.id.editTextTextFoodType);
         getFoodDescription = findViewById(R.id.editTextTextFoodDescription);
-        getFoodReview = findViewById(R.id.editTextTextFoodReview);
+        getFoodReviewMsg = findViewById(R.id.editTextTextFoodReviewMsg);
+        getFoodReviewRating = findViewById(R.id.editTextTextFoodReviewRating);
+        getFoodReviewRatingNeg = findViewById(R.id.editTextTextFoodReviewRatingNeg);
+        getFoodReviewRatingPos = findViewById(R.id.editTextTextFoodReviewRatingPos);
+
         setFood = findViewById(R.id.activityButtonSubmit);
     }
     @Override
@@ -54,30 +62,46 @@ public class AddItemActivity extends AppCompatActivity
                     getFoodName.setError("This field cannot be empty!");
                     isValid = false;
                 }
-                Editable getFoodSourceText = getFoodName.getText();
+                Editable getFoodSourceText = getFoodSource.getText();
                 if (getFoodSourceText.toString().isEmpty())
                 {
                     getFoodSource.setError("This field cannot be empty!");
                     isValid = false;
                 }
-                Editable getFoodTypeText = getFoodName.getText();
+                Editable getFoodTypeText = getFoodType.getText();
                 if (getFoodTypeText.toString().isEmpty())
                 {
                     getFoodType.setError("This field cannot be empty!");
                     isValid = false;
                 }
-                Editable getFoodDescriptionText = getFoodName.getText();
+                Editable getFoodDescriptionText = getFoodDescription.getText();
                 if (getFoodDescriptionText.toString().isEmpty())
                 {
                     getFoodDescription.setError("This field cannot be empty!");
                     isValid = false;
                 }
-                Editable getFoodReviewText = getFoodName.getText();
-                if (getFoodReviewText.toString().isEmpty())
+                Editable getFoodReviewMsgText = getFoodReviewMsg.getText();
+                if (getFoodReviewMsgText.toString().isEmpty())
                 {
-                    getFoodReview.setError("This field cannot be empty!");
+                    getFoodReviewMsg.setError("This field cannot be empty!");
                     isValid = false;
                 }
+                Editable getFoodReviewRatingText = getFoodReviewRating.getText();
+                if (getFoodReviewRatingText.toString().isEmpty())
+                {
+                    getFoodReviewRating.setError("This field cannot be empty!");
+                }
+                Editable getFoodReviewRatingNegText = getFoodReviewRatingNeg.getText();
+                if (getFoodReviewRatingNegText.toString().isEmpty())
+                {
+                    getFoodReviewRatingNeg.setError("This field cannot be empty!");
+                }
+                Editable getFoodReviewRatingPosText = getFoodReviewRatingPos.getText();
+                if (getFoodReviewRatingPosText.toString().isEmpty())
+                {
+                    getFoodReviewRatingPos.setError("This field cannot be empty!");
+                }
+
 
                 if (isValid)
                 {
@@ -87,19 +111,25 @@ public class AddItemActivity extends AppCompatActivity
                             " \"type\":\"" + getFoodTypeText + "\",\n" +
                             " \"description\": \"" + getFoodDescriptionText + "\",\n" +
                             " \"review\":\n" +
-                            "{ \"msg\":\"Amaziiiiiiiiiiing\",\n" +
-                            "\"type\":\"1\",\n" +
-                            "\"rating\": \"10\",\n" +
-                            "\"negative_points\": [\"-10\"],\n" +
-                            "\"positive_points\": [\"10\"]}\n" +
+                            "{ \"msg\":\"" + getFoodReviewMsgText +"\",\n" +
+                            "\"type\":\""+ getFoodTypeText +"\",\n" +
+                            "\"rating\": \"" + getFoodReviewRatingText +"\",\n" +
+                            "\"negative_points\": [\"" + getFoodReviewRatingNegText + "\"],\n" +
+                            "\"positive_points\": [\"" + getFoodReviewRatingPosText + "\"]}\n" +
                             "}";
+
                     Singleton.getInstance().requestBody = testFood;
                     Singleton.getInstance().setUrlOperation("/food/create");
                     try {
                         jsonRequest.postMethod(v.getContext(), new JsonRequest.VolleyCallBack() {
                             @Override
-                            public void onSuccess() throws JSONException {
-
+                            public void onSuccess() throws JSONException
+                            {
+                                String stringToPassBack = "Success";
+                                Intent intent = new Intent();
+                                intent.putExtra("status_create", stringToPassBack);
+                                setResult(RESULT_OK, intent);
+                                finish();
                             }
                         });
                     } catch (JSONException e) {

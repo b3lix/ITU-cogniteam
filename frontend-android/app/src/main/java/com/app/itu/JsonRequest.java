@@ -66,6 +66,37 @@ public class JsonRequest implements VolleyJsonRequest.ResponseListener{
         };
         queue.add(getRequest);
     }
+    public void getMethod(Context context, final VolleyCallBack volleyCallBack, boolean refresh)
+    {
+        if (refresh)
+        {
+
+        }
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest getRequest = new StringRequest(Request.Method.GET, Singleton.getInstance().url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        // response
+                        Log.d("Response", response);
+                        Singleton.getInstance().jsonOut = response;
+                        try {
+                            volleyCallBack.onSuccess();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("ERROR", "error => " + error.toString());
+                    }
+                });
+        queue.add(getRequest);
+    }
 
     public void postMethod(Context context,  final VolleyCallBack volleyCallBack) throws JSONException {
         this.context = context;

@@ -40,11 +40,14 @@ public class HomeFragment extends Fragment {
     JsonRequest jsonRequest = new JsonRequest();
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 1;
     private static final String TAG = HomeFragment.class.getSimpleName();
+    private ExpandableListDataPump expandableListDataPump = new ExpandableListDataPump();
 
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
     HashMap<String, List<String>> expandableListDetail;
+
+    View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        root = binding.getRoot();
 
         expandableListView = (ExpandableListView) binding.expandableListView;
 
@@ -64,7 +67,7 @@ public class HomeFragment extends Fragment {
                 JSONObject jsonObject = new JSONObject(Singleton.getInstance().jsonOut);
                 JSONArray tmp = jsonObject.getJSONArray("food");
 
-                expandableListDetail = ExpandableListDataPump.getData(tmp);
+                expandableListDetail = expandableListDataPump.getData(tmp);
                 expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
                 expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
                 expandableListView.setAdapter(expandableListAdapter);
@@ -157,8 +160,25 @@ public class HomeFragment extends Fragment {
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK)
             { // Activity.RESULT_OK
-                String a = "adsasads";
-                // set text view with string
+
+                String returnString = data.getStringExtra("status_create");
+                if (returnString.equals("Success"))
+                {
+                    Singleton.getInstance().setUrlOperation("/food/get");
+                    jsonRequest.getMethod(root.getContext(), new JsonRequest.VolleyCallBack() {
+                        @Override
+                        public void onSuccess() throws JSONException {
+
+                            JSONObject jsonObject = new JSONObject(Singleton.getInstance().jsonOut);
+                            JSONArray tmp = jsonObject.getJSONArray("food");
+
+                            expandableListDetail = expandableListDataPump.refreshData(tmp);
+                            expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+                            expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
+                            expandableListView.setAdapter(expandableListAdapter);
+                        }
+                    }, true);
+                }
             }
         }
     }
