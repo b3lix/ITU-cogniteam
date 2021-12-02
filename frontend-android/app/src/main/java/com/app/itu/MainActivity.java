@@ -1,5 +1,8 @@
 package com.app.itu;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +24,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.itu.databinding.ActivityMainBinding;
+
+import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,8 +58,53 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivityForResult(myIntent, SECOND_ACTIVITY_REQUEST_CODE);
+                Button tmpButt =(Button)findViewById(R.id.buttonAcc);
+                String actionText = (String) tmpButt.getText();
+                if (actionText.equals("Log in"))
+                {
+                    Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivityForResult(myIntent, SECOND_ACTIVITY_REQUEST_CODE);
+                }
+                else if (actionText.equals("Log out"))
+                {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+                                    JsonRequest jsonRequest = new JsonRequest();
+                                    try {
+                                        jsonRequest.postMethod(view.getContext(),new JsonRequest.VolleyCallBack() {
+                                            @SuppressLint("SetTextI18n")
+                                            @Override
+                                            public void onSuccess() throws JSONException
+                                            {
+                                                Button button = (Button)findViewById(R.id.buttonAcc);
+                                                button.setText("Log in");
+                                                Singleton.getInstance().cookieHeader = "";
+                                                button.setBackgroundColor(Color.parseColor("#FF673AB7"));
+                                                Snackbar.make(view, "Successfully log out !", Snackbar.LENGTH_LONG)
+                                                        .setAction("Action", null).show();
+                                            }
+                                        });
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setMessage("Are you sure to log out ?").setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
+                }
+
             }
         });
 
@@ -94,10 +144,10 @@ public class MainActivity extends AppCompatActivity {
                 // get String data from Intent
                 String returnString = data.getStringExtra("status_logged_in");
                 String username = data.getStringExtra("username");
-
+                Singleton.getInstance().username = username;
                 Button button = (Button)findViewById(R.id.buttonAcc);
                 button.setText(returnString);
-                button.setClickable(false);
+
                 button.setBackgroundColor(Color.GREEN);
                 TextView textView = (TextView)findViewById(R.id.textView);
                 textView.setText(username);

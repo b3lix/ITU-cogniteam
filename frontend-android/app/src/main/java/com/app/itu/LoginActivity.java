@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity
                             @Override
                             public void onSuccess() throws JSONException {
 
-                                String stringToPassBack = "Logged in";
+                                String stringToPassBack = "Log out";
                                 Intent intent = new Intent();
                                 intent.putExtra("status_logged_in", stringToPassBack);
                                 intent.putExtra("username", usernameText.toString());

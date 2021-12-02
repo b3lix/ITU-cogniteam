@@ -11,6 +11,8 @@ public class Singleton {
     public String url;
     public String cookieHeader;
     public String jsonOut;
+    public String username;
+
     private Singleton()
     {
         operation = "";
