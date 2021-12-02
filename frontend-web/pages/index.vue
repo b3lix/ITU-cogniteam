@@ -36,7 +36,7 @@
       </div>
       <div>Recenzií: {{ meal.reviews }}</div>
       <div><i>Priemerná cena:</i> <font-awesome-icon icon="dollar-sign"></font-awesome-icon> <strong>{{ meal.average.price}} Kč</strong></div>
-      <div><i>Priemerné hodnotenie:</i> <font-awesome-icon icon="star"></font-awesome-icon> <strong>{{ meal.average.rating }}/10</strong></div>
+      <div><i>Priemerné hodnotenie:</i> <font-awesome-icon icon="star"></font-awesome-icon> <strong>{{ meal.average.rating }} / 5</strong></div>
       <hr>
     </div>
   </b-container>

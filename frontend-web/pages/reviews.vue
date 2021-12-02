@@ -26,7 +26,7 @@
 									rating: review.rating
 								}"><font-awesome-icon icon="pencil-alt"></font-awesome-icon> Upraviť</b-button>
 								<font-awesome-icon icon="star" style="color: rgb(200, 150, 0);"></font-awesome-icon>
-								{{ review.rating }} / 10
+								{{ review.rating }} / 5
 							</div>
 						</div>
 					</div>
@@ -62,8 +62,8 @@
               <b-form-input v-model="formData.price" type="number" placeholder="Cena" required></b-form-input>
           </b-form-group>
           <b-form-group>
-              <label>Hodnotenie [0-10]:</label>
-              <b-form-input v-model="formData.rating" min="0" max="10" type="number" placeholder="Hodnotenie" required></b-form-input>
+              <label>Hodnotenie [0-5]:</label>
+              <b-form-input v-model="formData.rating" min="0" max="5" type="number" placeholder="Hodnotenie" required></b-form-input>
           </b-form-group>
           Pozitívne body:
           <b-input-group>
