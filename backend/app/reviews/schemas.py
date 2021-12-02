@@ -10,7 +10,7 @@ class CreateModel(BaseModel):
     positive_points: List[constr(strip_whitespace=True, min_length=2)]
     negative_points: List[constr(strip_whitespace=True, min_length=2)]
     price: Optional[conint(gt=0)]
-    rating: conint(ge=0, le=10)
+    rating: conint(ge=0, le=5)
 
 class UpdateModel(BaseModel):
     id: int
@@ -18,4 +18,4 @@ class UpdateModel(BaseModel):
     positive_points: List[constr(strip_whitespace=True, min_length=2)]
     negative_points: List[constr(strip_whitespace=True, min_length=2)]
     price: Optional[conint(gt=0)]
-    rating: conint(ge=0, le=10)
+    rating: conint(ge=0, le=5)

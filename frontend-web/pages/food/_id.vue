@@ -8,7 +8,7 @@
         <p>{{ meal.description }}</p>
         <br>
         <div><strong>Priemerná cena: <font-awesome-icon icon="dollar-sign"></font-awesome-icon></strong> {{ meal.average.price }} Kč</div>
-        <div><strong>Priemerná hodnotenie:</strong> <font-awesome-icon icon="star"></font-awesome-icon> {{ meal.average.rating }} / 10</div>
+        <div><strong>Priemerná hodnotenie:</strong> <font-awesome-icon icon="star"></font-awesome-icon> {{ meal.average.rating }} / 5</div>
     </div>
     <hr>
     <b-row v-if="my_review != null">
@@ -27,7 +27,7 @@
                         <div class="review-block-rate">
                             <b-button variant="primary" size="sm" v-b-modal.modal-update><font-awesome-icon icon="pencil-alt"></font-awesome-icon> Upraviť</b-button>
                             <font-awesome-icon icon="star" style="color: rgb(200, 150, 0);"></font-awesome-icon>
-                            {{ my_review.rating }} / 10
+                            {{ my_review.rating }} / 5
                         </div>
                     </div>
                 </div>
@@ -62,8 +62,8 @@
                     <b-form-input v-model="my_review_edit.price" type="number" placeholder="Cena" required></b-form-input>
                 </b-form-group>
                 <b-form-group>
-                    <label>Hodnotenie [0-10]:</label>
-                    <b-form-input v-model="my_review_edit.rating" min="0" max="10" type="number" placeholder="Hodnotenie" required></b-form-input>
+                    <label>Hodnotenie [0-5]:</label>
+                    <b-form-input v-model="my_review_edit.rating" min="0" max="5" type="number" placeholder="Hodnotenie" required></b-form-input>
                 </b-form-group>
                 Pozitivne body:
                 <b-input-group>
@@ -116,8 +116,8 @@
                     <b-form-input v-model="formData.price" type="number" placeholder="Cena" required></b-form-input>
                 </b-form-group>
                 <b-form-group>
-                    <label>Hodnotenie [0-10]:</label>
-                    <b-form-input v-model="formData.rating" min="0" max="10" type="number" placeholder="Hodnotenie" required></b-form-input>
+                    <label>Hodnotenie [0-5]:</label>
+                    <b-form-input v-model="formData.rating" min="0" max="5" type="number" placeholder="Hodnotenie" required></b-form-input>
                 </b-form-group>
                 Pozitívne body:
                 <b-input-group>
@@ -169,7 +169,7 @@
                     <div class="col-auto">
                         <div class="review-block-rate">
                             <font-awesome-icon icon="star" style="color: rgb(200, 150, 0);"></font-awesome-icon>
-                            {{ review.rating }} / 10
+                            {{ review.rating }} / 5
                         </div>
                     </div>
                 </div>

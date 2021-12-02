@@ -49,8 +49,8 @@
           <b-form-input v-model="formData.review.price" type="number" placeholder="Cena" required></b-form-input>
         </b-form-group>
         <b-form-group>
-          <label>Hodnotenie [0-10]:</label>
-          <b-form-input v-model="formData.review.rating" min="0" max="10" type="number" placeholder="Hodnotenie" required></b-form-input>
+          <label>Hodnotenie [0-5]:</label>
+          <b-form-input v-model="formData.review.rating" min="0" max="5" type="number" placeholder="Hodnotenie" required></b-form-input>
         </b-form-group>
         Pozitivne body:
         <b-input-group>
