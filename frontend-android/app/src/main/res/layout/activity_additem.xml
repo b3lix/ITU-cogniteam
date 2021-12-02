@@ -50,18 +50,29 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodName" />
 
-                <EditText
-                    android:id="@+id/editTextTextFoodType"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textAlignment="center"
-                    android:ems="10"
-                    android:hint="Typ"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.493"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodSource" />
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodSource"
+                    tools:layout_editor_absoluteY="148dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Shop" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Restaurant" />
+                </RadioGroup>
 
                 <EditText
                     android:id="@+id/editTextTextFoodDescription"
@@ -74,7 +85,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.493"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodType" />
+                    app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
                 <EditText
                     android:id="@+id/editTextTextFoodReviewMsg"
@@ -89,14 +100,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodDescription" />
 
-                <EditText
+
+                <RatingBar
                     android:id="@+id/editTextTextFoodReviewRating"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:textAlignment="center"
-                    android:ems="10"
-                    android:hint="Hodnotenie"
+                    android:layout_width="wrap_content"
+                    android:maxWidth="40dp"
+                    android:layout_height="56dp"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:stepSize="0.5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.493"
                     app:layout_constraintStart_toStartOf="parent"
