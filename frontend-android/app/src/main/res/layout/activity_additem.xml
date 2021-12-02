@@ -77,7 +77,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodType" />
 
                 <EditText
-                    android:id="@+id/editTextTextFoodReview"
+                    android:id="@+id/editTextTextFoodReviewMsg"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
                     android:layout_marginTop="10dp"
@@ -89,6 +89,45 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodDescription" />
 
+                <EditText
+                    android:id="@+id/editTextTextFoodReviewRating"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:ems="10"
+                    android:hint="Hodnotenie"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.493"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodReviewMsg" />
+
+                <EditText
+                    android:id="@+id/editTextTextFoodReviewRatingNeg"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:ems="10"
+                    android:hint="Mínusy"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.493"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodReviewRating" />
+
+                <EditText
+                    android:id="@+id/editTextTextFoodReviewRatingPos"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:ems="10"
+                    android:hint="Plusy"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.493"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodReviewRatingNeg" />
+
                 <Button
                     android:id="@+id/activityButtonSubmit"
                     android:layout_width="wrap_content"
@@ -98,7 +137,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodReview"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTextFoodReviewRatingPos"
                     app:layout_constraintVertical_bias="0.544" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
