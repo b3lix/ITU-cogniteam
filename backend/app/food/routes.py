@@ -18,6 +18,12 @@ from app.entities.review import Review
 @login_required
 @validate()
 def create(body: CreateModel):
+    food: Food = Food.query.filter(Food.name == body.name).filter(Food.source == body.source).first()
+
+    # Check if food with the same name already exists
+    if food is not None:
+        return make_response(409, data={"message": "Jedlo s týmto názvom a výrobcom už existuje"})
+
     food: Food = create_food(body.name, body.source, body.description, body.type, body.barcode)
     create_review(body.review.description, body.review.positive_points, body.review.negative_points, body.review.price, body.review.rating, food.id, current_user.id)
 

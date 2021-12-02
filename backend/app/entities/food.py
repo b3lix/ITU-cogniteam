@@ -14,7 +14,7 @@ class FoodType(enum.IntEnum):
 class Food(Base):
     __tablename__     = "food"
     id: int           = Column(Integer, primary_key = True, autoincrement = True)
-    name: str         = Column(String(64), index = True, unique = True)
+    name: str         = Column(String(64), index = True)
     source: str       = Column(String(128))
     description: str  = Column(String(128), nullable=True)
     type: FoodType    = Column(Enum(FoodType))

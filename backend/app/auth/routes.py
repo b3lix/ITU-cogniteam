@@ -16,7 +16,7 @@ def register(body: RegisterModel):
     created: User = create_user(body.username, body.password)
 
     if created == None:
-        return make_response(409)
+        return make_response(409, data={"message": "Uživateľ s týmto menom už existuje"})
 
     return make_response(200)
 
@@ -26,7 +26,7 @@ def login(body: LoginModel):
     user: User = authenticate(body.username, body.password)
     
     if user == None:
-        return make_response(401)
+        return make_response(401, data={"message": "Uživateľ s týmito prihlasovacími údajmi neexistuje"})
 
     login_user(user)
     return make_response(200)
