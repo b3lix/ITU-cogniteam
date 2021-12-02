@@ -1,5 +1,6 @@
 package com.app.itu.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,6 +100,10 @@ public class HomeFragment extends Fragment {
         binding.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
+//                Intent myIntent = new Intent(, HomeFragment.class);
+//                HomeFragment.this.startActivity(myIntent);
+
                 String name = "TestOnClick";
 
                 Singleton.getInstance().setUrlOperation("/auth/login");
