@@ -1,9 +1,12 @@
 package com.app.itu;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +52,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view)
             {
                 Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
-                MainActivity.this.startActivity(myIntent);
+                startActivityForResult(myIntent, SECOND_ACTIVITY_REQUEST_CODE);
             }
         });
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -74,5 +79,29 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK)
+            { // Activity.RESULT_OK
+
+                // get String data from Intent
+                String returnString = data.getStringExtra("status_logged_in");
+                String username = data.getStringExtra("username");
+
+                Button button = (Button)findViewById(R.id.buttonAcc);
+                button.setText(returnString);
+                button.setClickable(false);
+                button.setBackgroundColor(Color.GREEN);
+                TextView textView = (TextView)findViewById(R.id.textView);
+                textView.setText(username);
+
+                // set text view with string
+            }
+        }
     }
 }
