@@ -23,6 +23,7 @@ public class Singleton {
             "  \"skipCrossSell\":true\n" +
             "}";
         url = "https://travelwise.online:8090";
+        cookieHeader = "";
     }
 
     public void setUrlOperation(String operation)

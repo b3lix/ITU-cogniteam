@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
                 JSONObject jsonObject = new JSONObject(Singleton.getInstance().jsonOut);
                 JSONArray tmp = jsonObject.getJSONArray("food");
 
-                expandableListDetail = expandableListDataPump.getData(tmp);
+                expandableListDetail = expandableListDataPump.getData(tmp, false);
                 expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
                 expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
                 expandableListView.setAdapter(expandableListAdapter);
@@ -96,14 +96,39 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                Toast.makeText(
-                        root.getContext(),
-                        expandableListTitle.get(groupPosition)
-                                + " -> "
-                                + expandableListDetail.get(
-                                expandableListTitle.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT
-                ).show();
+//                Toast.makeText(
+//                        root.getContext(),
+//                        expandableListTitle.get(groupPosition)
+//                                + " -> "
+//                                + expandableListDetail.get(
+//                                expandableListTitle.get(groupPosition)).get(
+//                                childPosition), Toast.LENGTH_SHORT
+//                ).show();
+                String [] tmp = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).split(":");
+                String operation = tmp[0];
+                String foodId = tmp[1].substring(1);
+                if (operation.equals("PRIDAŤ DO OBĽÚBENÝCH"))
+                {
+                    if (!Singleton.getInstance().cookieHeader.isEmpty())
+                    {
+                        Singleton.getInstance().setUrlOperation("/food/favourite/" + id);
+                        try {
+                            jsonRequest.postMethod(root.getContext(),new JsonRequest.VolleyCallBack() {
+                                @Override
+                                public void onSuccess() throws JSONException
+                                {
+                                    Toast.makeText(root.getContext(),"Added to your favorite !",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(root.getContext(),"You must be logged in for add to favorite !",Toast.LENGTH_SHORT).show();
+                    }
+                }
                 return false;
             }
         });

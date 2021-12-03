@@ -11,7 +11,7 @@ import java.util.List;
 public class ExpandableListDataPump {
     public HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
 
-    public HashMap<String, List<String>> getData(JSONArray jsonArray)
+    public HashMap<String, List<String>> getData(JSONArray jsonArray, boolean favoriteFlag)
     {
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
@@ -25,6 +25,7 @@ public class ExpandableListDataPump {
                 String averagePrice = average.get("price").toString();
                 String averageRating = average.get("rating").toString();
 
+                String id = object.getString("id");
 
                 foodInfo.add(String.format("Zdroj: %s", foodSource));
                 foodInfo.add(String.format("Počet recenzií: %s", numberOfReviews));
@@ -33,7 +34,7 @@ public class ExpandableListDataPump {
 
                 String favourite = object.get("favourite").toString();
                 if (favourite.equals("null")) {
-                    foodInfo.add("PRIDAŤ DO OBĽÚBENÝCH");
+                    foodInfo.add(String.format("PRIDAŤ DO OBĽÚBENÝCH: %s", id));
                 }
                 else {
                     foodInfo.add("OBĽÚBENÉ");
@@ -51,7 +52,7 @@ public class ExpandableListDataPump {
     public HashMap<String, List<String>> refreshData(JSONArray jsonArray)
     {
         expandableListDetail.clear();
-        expandableListDetail = getData(jsonArray);
+        expandableListDetail = getData(jsonArray, false);
         return expandableListDetail;
     }
 }
