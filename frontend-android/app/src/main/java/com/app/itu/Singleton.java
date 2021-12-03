@@ -12,9 +12,11 @@ public class Singleton {
     public String cookieHeader;
     public String jsonOut;
     public String username;
+    public boolean authFlag;
 
     private Singleton()
     {
+        authFlag = true;
         operation = "";
         requestBody = "{\n" +
             "  \"username\":\"admin\",\n" +

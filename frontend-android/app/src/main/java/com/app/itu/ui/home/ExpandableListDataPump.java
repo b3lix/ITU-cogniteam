@@ -99,6 +99,11 @@ public class ExpandableListDataPump {
                             dataCallBack.onSuccess();
                         }
                     }
+
+                    @Override
+                    public void onFail() {
+
+                    }
                 });
             } catch (JSONException e) {
                 e.printStackTrace();

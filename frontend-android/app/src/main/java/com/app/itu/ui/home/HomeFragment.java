@@ -93,11 +93,22 @@ public class HomeFragment extends Fragment {
                     {
                         JSONObject jsonObject = new JSONObject(Singleton.getInstance().jsonOut);
                         JSONArray tmp = jsonObject.getJSONArray("food");
+                        expandableListDataPump.expandableListDetailObject.clear();
+                        expandableListDataPump.getData(tmp, getContext(), new ExpandableListDataPump.DataCallBack() {
+                            @Override
+                            public void onSuccess() throws JSONException {
+                                expandableListDetail = expandableListDataPump.expandableListDetailObject;
 
-                        expandableListDetail = expandableListDataPump.refreshData(tmp);
-                        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-                        expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
-                        expandableListView.setAdapter(expandableListAdapter);
+                                expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+                                expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
+                                expandableListView.setAdapter(expandableListAdapter);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFail() {
+
                     }
                 }, Integer.toString(operation), query);
 
@@ -131,6 +142,11 @@ public class HomeFragment extends Fragment {
                 });
 
             }
+
+            @Override
+            public void onFail() {
+
+            }
         });
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
@@ -159,18 +175,23 @@ public class HomeFragment extends Fragment {
 
                 String [] tmp = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).split(":");
                 String operation = tmp[0];
-                String id_fav = tmp[1].substring(1);
                 if (operation.equals("PRIDAŤ DO OBĽÚBENÝCH"))
                 {
+                    String idFav = tmp[1].substring(1);
                     if (!Singleton.getInstance().cookieHeader.isEmpty())
                     {
-                        Singleton.getInstance().setUrlOperation("/food/favourite/" + id_fav);
+                        Singleton.getInstance().setUrlOperation("/food/favourite/" + idFav);
                         try {
                             jsonRequest.postMethod(root.getContext(),new JsonRequest.VolleyCallBack() {
                                 @Override
                                 public void onSuccess() throws JSONException
                                 {
-                                    Toast.makeText(root.getContext(),"Added to your favorite !",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(root.getContext(),"Pridané do obľúbených !",Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFail() {
+
                                 }
                             });
                         } catch (JSONException e) {
@@ -179,7 +200,7 @@ public class HomeFragment extends Fragment {
                     }
                     else
                     {
-                        Toast.makeText(root.getContext(),"You must be logged in for add to favorite !",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(root.getContext(),"Musíš byť prihlasený aby si si mohol pridať do Obľúbené !",Toast.LENGTH_SHORT).show();
                     }
                 }
                 else if (operation.equals("OBĽÚBENÉ"))
@@ -190,7 +211,12 @@ public class HomeFragment extends Fragment {
                             @Override
                             public void onSuccess() throws JSONException
                             {
-                                Toast.makeText(root.getContext(),"Removed from your favorite !",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(root.getContext(),"Odstranené z Obľúbených !",Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFail() {
+
                             }
                         });
                     } catch (JSONException e) {
@@ -228,39 +254,6 @@ public class HomeFragment extends Fragment {
                 Intent myIntent = new Intent(view.getContext(), AddItemActivity.class);
                 startActivityForResult(myIntent, SECOND_ACTIVITY_REQUEST_CODE);
 
-
-                String name = "TestOnClick";
-
-                Singleton.getInstance().setUrlOperation("/auth/login");
-                try {
-                    jsonRequest.postMethod(view.getContext(), new JsonRequest.VolleyCallBack() {
-                        @Override
-                        public void onSuccess() throws JSONException {
-                            String testFood = "{\n" +
-                                    " \"name\":\"TestFood\",\n" +
-                                    " \"source\":\"Source\",\n" +
-                                    " \"type\":\"1\",\n" +
-                                    " \"description\": \"Test\",\n" +
-                                    " \"review\":\n" +
-                                    "{ \"msg\":\"Amaziiiiiiiiiiing\",\n" +
-                                    "\"type\":\"1\",\n" +
-                                    "\"rating\": \"10\",\n" +
-                                    "\"negative_points\": [\"-10\"],\n" +
-                                    "\"positive_points\": [\"10\"]}\n" +
-                                    "}";
-                            Singleton.getInstance().requestBody = testFood;
-                            Singleton.getInstance().setUrlOperation("/food/create");
-                            jsonRequest.postMethod(view.getContext(), new JsonRequest.VolleyCallBack() {
-                                @Override
-                                public void onSuccess() throws JSONException {
-
-                                }
-                            });
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
         });
         return root;
@@ -290,6 +283,11 @@ public class HomeFragment extends Fragment {
                             expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
                             expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
                             expandableListView.setAdapter(expandableListAdapter);
+                        }
+
+                        @Override
+                        public void onFail() {
+
                         }
                     }, true);
                 }

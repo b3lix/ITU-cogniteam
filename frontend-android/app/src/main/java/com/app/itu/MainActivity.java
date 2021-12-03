@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view)
             {
                 Button tmpButt =(Button)findViewById(R.id.buttonAcc);
+                TextView textView = (TextView)findViewById(R.id.textView);
+                String textViewString = (String) textView.getText();
                 String actionText = (String) tmpButt.getText();
 
                 if (actionText.equals("Log in"))
@@ -78,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
                                     //Yes button clicked
                                     JsonRequest jsonRequest = new JsonRequest();
                                     try {
+                                        Singleton.getInstance().setUrlOperation("/auth/logout");
+                                        Singleton.getInstance().requestBody = "{"+"\"username\":"+ textViewString +"}";
                                         jsonRequest.postMethod(view.getContext(),new JsonRequest.VolleyCallBack() {
                                             @SuppressLint("SetTextI18n")
                                             @Override
@@ -89,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
                                                 button.setBackgroundColor(Color.parseColor("#FF673AB7"));
                                                 Snackbar.make(view, "Successfully log out !", Snackbar.LENGTH_LONG)
                                                         .setAction("Action", null).show();
+                                            }
+
+                                            @Override
+                                            public void onFail() {
+
                                             }
                                         });
                                     } catch (JSONException e) {

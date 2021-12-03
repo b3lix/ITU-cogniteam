@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -85,6 +86,12 @@ public class LoginActivity extends AppCompatActivity
                                 finish();
 
                             }
+
+                            @Override
+                            public void onFail()
+                            {
+                                Toast.makeText(getApplicationContext(),"Nesprávne prihlasovacie údaje skúste ešte raz !", Toast.LENGTH_SHORT).show();
+                            }
                         });
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -133,6 +140,11 @@ public class LoginActivity extends AppCompatActivity
                                 setResult(RESULT_OK, intent);
 
                                 finish();
+
+                            }
+
+                            @Override
+                            public void onFail() {
 
                             }
                         });

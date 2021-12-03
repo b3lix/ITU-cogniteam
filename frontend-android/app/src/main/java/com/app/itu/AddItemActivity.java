@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -62,7 +63,7 @@ public class AddItemActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if (Singleton.getInstance().cookieHeader.isEmpty())
+                if (!Singleton.getInstance().cookieHeader.isEmpty())
                 {
                     boolean isValid = true;
 
@@ -99,7 +100,7 @@ public class AddItemActivity extends AppCompatActivity
                         isValid = false;
                     }
                     float getFoodReviewRatingRate = getFoodReviewRating.getRating();
-                    getFoodReviewRatingRate = getFoodReviewRatingRate * 2;
+                    getFoodReviewRatingRate = getFoodReviewRatingRate;
                     int getFoodReviewRatingRateInt = (int) getFoodReviewRatingRate;
                     Editable getFoodReviewRatingNegText = getFoodReviewRatingNeg.getText();
                     if (getFoodReviewRatingNegText.toString().isEmpty())
@@ -139,6 +140,12 @@ public class AddItemActivity extends AppCompatActivity
                                     intent.putExtra("status_create", stringToPassBack);
                                     setResult(RESULT_OK, intent);
                                     finish();
+                                }
+
+                                @Override
+                                public void onFail()
+                                {
+                                    Toast.makeText(getApplicationContext(),"Toto jedlo už existuje !", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } catch (JSONException e) {

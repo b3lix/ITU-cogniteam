@@ -148,6 +148,7 @@ public class JsonRequest implements VolleyJsonRequest.ResponseListener{
 
     }
 
+
     @Override
     public void onResponse(int statusCode, List<Header> headers, JSONObject object, JSONArray array, VolleyCallBack volleyCallBack) throws JSONException {
         Log.e(TAG,"-------------------------------");
@@ -156,9 +157,17 @@ public class JsonRequest implements VolleyJsonRequest.ResponseListener{
             if (header.getName().equals("Set-Cookie"))
             {
                 Singleton.getInstance().cookieHeader = header.getValue().split(";")[0];
+                volleyCallBack.onSuccess();
+            }
+            if (header.getValue().equals("{\"message\":\"Uživateľ s týmito prihlasovacími údajmi neexistuje\"}"))
+            {
+                Singleton.getInstance().authFlag = false;
             }
         }
-        volleyCallBack.onSuccess();
+        if (statusCode == 200)
+        {
+            volleyCallBack.onSuccess();
+        }
         if (object != null)
         {
             // todo handle json
@@ -170,5 +179,6 @@ public class JsonRequest implements VolleyJsonRequest.ResponseListener{
     public interface VolleyCallBack
     {
         void onSuccess() throws JSONException;
+        void onFail();
     }
 }

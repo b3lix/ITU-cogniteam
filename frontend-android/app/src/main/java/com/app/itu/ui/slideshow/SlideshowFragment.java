@@ -79,6 +79,11 @@ public class SlideshowFragment extends Fragment {
                     expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
                     expandableListView.setAdapter(expandableListAdapter);
                 }
+
+                @Override
+                public void onFail() {
+
+                }
             });
 
             expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
@@ -117,6 +122,11 @@ public class SlideshowFragment extends Fragment {
                                     {
                                         Toast.makeText(root.getContext(),"Added to your favorite !",Toast.LENGTH_SHORT).show();
                                     }
+
+                                    @Override
+                                    public void onFail() {
+
+                                    }
                                 });
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -136,6 +146,11 @@ public class SlideshowFragment extends Fragment {
                                 public void onSuccess() throws JSONException
                                 {
                                     Toast.makeText(root.getContext(),"Removed from your favorite !",Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFail() {
+
                                 }
                             });
                         } catch (JSONException e) {

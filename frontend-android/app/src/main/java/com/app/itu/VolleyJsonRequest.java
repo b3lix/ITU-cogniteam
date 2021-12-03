@@ -70,6 +70,7 @@ public class VolleyJsonRequest {
                         error.networkResponse.data,
                         HttpHeaderParser.parseCharset(error.networkResponse.headers));
                 deliverResult(json);
+                volleyCallBack.onFail();
             } catch (
                     UnsupportedEncodingException | JSONException e) {
                 Log.e(TAG, Log.getStackTraceString(e));
@@ -114,6 +115,7 @@ public class VolleyJsonRequest {
         protected Response parseNetworkResponse(NetworkResponse response) {
             headers.addAll(response.allHeaders);
             statusCode = response.statusCode;
+
             String string;
             try {
                 string = new String(
