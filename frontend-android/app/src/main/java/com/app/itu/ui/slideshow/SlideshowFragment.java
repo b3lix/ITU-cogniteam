@@ -65,7 +65,7 @@ public class SlideshowFragment extends Fragment {
         {
             expandableListView = (ExpandableListView) binding.expandableListView;
 
-            Singleton.getInstance().setUrlOperation("/food/get");
+            Singleton.getInstance().setUrlOperation("/reviews/my");
             jsonRequest.getMethod(root.getContext(), new JsonRequest.VolleyCallBack() {
                 @Override
                 public void onSuccess() throws JSONException {

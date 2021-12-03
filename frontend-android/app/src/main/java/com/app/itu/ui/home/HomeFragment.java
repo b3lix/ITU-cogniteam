@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListAdapter;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,43 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         root = binding.getRoot();
 
+
+        SearchView simpleSearchView = binding.searchView; // inititate a search view
+
+// perform set on query text listener event
+        simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                int operation = 0;
+                if (binding.radioButton2.isChecked())
+                {
+                    operation = 1;
+                }
+                Singleton.getInstance().setUrlOperation("/food/get");
+
+                jsonRequest.getMethod(getContext(), new JsonRequest.VolleyCallBack() {
+                    @Override
+                    public void onSuccess() throws JSONException
+                    {
+                        JSONObject jsonObject = new JSONObject(Singleton.getInstance().jsonOut);
+                        JSONArray tmp = jsonObject.getJSONArray("food");
+
+                        expandableListDetail = expandableListDataPump.refreshData(tmp);
+                        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+                        expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
+                        expandableListView.setAdapter(expandableListAdapter);
+                    }
+                }, Integer.toString(operation), query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         expandableListView = (ExpandableListView) binding.expandableListView;
 
         Singleton.getInstance().setUrlOperation("/food/get");
@@ -72,7 +110,7 @@ public class HomeFragment extends Fragment {
                 expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
                 expandableListView.setAdapter(expandableListAdapter);
             }
-        }, true);
+        });
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
@@ -127,6 +165,21 @@ public class HomeFragment extends Fragment {
                     else
                     {
                         Toast.makeText(root.getContext(),"You must be logged in for add to favorite !",Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else if (operation.equals("OBĽÚBENÉ"))
+                {
+                    Singleton.getInstance().setUrlOperation("/food/favourite/" + id);
+                    try {
+                        jsonRequest.postMethod(root.getContext(),new JsonRequest.VolleyCallBack() {
+                            @Override
+                            public void onSuccess() throws JSONException
+                            {
+                                Toast.makeText(root.getContext(),"Removed from your favorite !",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
                 return false;

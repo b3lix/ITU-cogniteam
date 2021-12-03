@@ -24,7 +24,7 @@ import java.util.Map;
 public class JsonRequest implements VolleyJsonRequest.ResponseListener{
     private static final String TAG = "TAG";
     private Context context;
-
+    private Map<String, String> mParams;
     public JsonRequest ()
     {
 
@@ -95,6 +95,45 @@ public class JsonRequest implements VolleyJsonRequest.ResponseListener{
                         Log.d("ERROR", "error => " + error.toString());
                     }
                 });
+        queue.add(getRequest);
+    }
+
+    public void getMethod(Context context, final VolleyCallBack volleyCallBack, String type, String value)
+    {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String final_url = Singleton.getInstance().url + "?value=" + value + "&type=" + type;
+        StringRequest getRequest = new StringRequest(Request.Method.GET, final_url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        // response
+                        Log.d("Response", response);
+                        Singleton.getInstance().jsonOut = response;
+                        try {
+                            volleyCallBack.onSuccess();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("ERROR","error => "+error.toString());
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Cookie", Singleton.getInstance().cookieHeader);
+
+                return params;
+            }
+        };
         queue.add(getRequest);
     }
 

@@ -37,7 +37,7 @@ public class ExpandableListDataPump {
                     foodInfo.add(String.format("PRIDAŤ DO OBĽÚBENÝCH: %s", id));
                 }
                 else {
-                    foodInfo.add("OBĽÚBENÉ");
+                    foodInfo.add(String.format("OBĽÚBENÉ: %s", id));
                 }
 
                 expandableListDetail.put(foodName, foodInfo);
