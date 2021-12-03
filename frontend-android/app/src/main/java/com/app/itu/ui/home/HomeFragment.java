@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment {
     JsonRequest jsonRequest = new JsonRequest();
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 1;
     private static final String TAG = HomeFragment.class.getSimpleName();
+
     private ExpandableListDataPump expandableListDataPump = new ExpandableListDataPump();
 
     ExpandableListView expandableListView;
@@ -105,10 +106,17 @@ public class HomeFragment extends Fragment {
                 JSONObject jsonObject = new JSONObject(Singleton.getInstance().jsonOut);
                 JSONArray tmp = jsonObject.getJSONArray("food");
 
-                expandableListDetail = expandableListDataPump.getData(tmp, false);
-                expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-                expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
-                expandableListView.setAdapter(expandableListAdapter);
+                expandableListDataPump.getData(tmp, getContext(), new ExpandableListDataPump.DataCallBack() {
+                    @Override
+                    public void onSuccess() throws JSONException {
+                        expandableListDetail = expandableListDataPump.expandableListDetailObject;
+
+                        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+                        expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
+                        expandableListView.setAdapter(expandableListAdapter);
+                    }
+                });
+
             }
         });
 
