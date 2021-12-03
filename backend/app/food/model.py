@@ -78,7 +78,9 @@ def toggle_favourite(food: int, user: int) -> None:
         session.commit()
         return
 
-    favourite = Favourite(user_id=user, food_id=food)
-    session.add(favourite)
-    session.commit()
+    if get_food_by_id(food) != None:
+        favourite = Favourite(user_id=user, food_id=food)
+        session.add(favourite)
+        session.commit()
+
     return
