@@ -2,6 +2,9 @@ package com.app.itu.ui.home;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,6 +28,7 @@ import com.app.itu.R;
 import com.app.itu.Singleton;
 import com.app.itu.databinding.FragmentHomeBinding;
 import com.app.itu.ui.gallery.GalleryFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -150,9 +154,10 @@ public class HomeFragment extends Fragment {
 //                                expandableListTitle.get(groupPosition)).get(
 //                                childPosition), Toast.LENGTH_SHORT
 //                ).show();
+
+
                 String [] tmp = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).split(":");
                 String operation = tmp[0];
-                String foodId = tmp[1].substring(1);
                 if (operation.equals("PRIDAŤ DO OBĽÚBENÝCH"))
                 {
                     if (!Singleton.getInstance().cookieHeader.isEmpty())
@@ -189,6 +194,27 @@ public class HomeFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }
+                else if (operation.equals("PREZERAŤ REZENCIE")) {
+                    String jsonOut = Singleton.getInstance().jsonOut;
+                    try {
+                        JSONObject json = new JSONObject(jsonOut);
+                        JSONArray jsonArr = json.getJSONArray("reviews");
+                        JSONObject reviews = (JSONObject) jsonArr.get(0);
+                        String reviweId = reviews.get("id").toString();
+                        String date = reviews.get("date").toString();
+                        String user = reviews.get("user").toString();
+                        String rating = reviews.get("rating").toString();
+                        String description = reviews.get("description").toString();
+                        String posPoints = reviews.get("positive_points").toString();
+                        String negPoints = reviews.get("negative_points").toString();
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setMessage(reviweId + "\nDátum:\n" + date + "\nPoužívateľ:\n" + user + "\nHodnotenie:\n" + rating + "\nPopis:\n" + description + "\nPlusy:\n" + posPoints + "\nMínusy:\n" + negPoints + "\n").setTitle("Recenzie").show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
                 return false;
             }

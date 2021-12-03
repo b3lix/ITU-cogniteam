@@ -68,8 +68,6 @@ public class ExpandableListDataPump {
                 jsonRequest.getMethod(context, new JsonRequest.VolleyCallBack() {
                     @Override
                     public void onSuccess() throws JSONException {
-                        //tu su reviews
-                        String jsonOut = Singleton.getInstance().jsonOut;
 
                         String foodName = object.get("name").toString();
 
@@ -84,7 +82,8 @@ public class ExpandableListDataPump {
                         foodInfo.add(String.format("Zdroj: %s", foodSource));
                         foodInfo.add(String.format("Počet recenzií: %s", numberOfReviews));
                         foodInfo.add(String.format("Priemerná cena: %s", averagePrice));
-                        foodInfo.add(String.format("Priemerné hodnotenie: %s/10.00", averageRating));
+                        foodInfo.add(String.format("Priemerné hodnotenie: %s/5.00", averageRating));
+                        foodInfo.add(String.format("PREZERAŤ REZENCIE"));
 
                         String favourite = object.get("favourite").toString();
                         if (favourite.equals("null")) {
