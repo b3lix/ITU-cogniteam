@@ -8,7 +8,7 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item to="/food/create" :disabled="$store.state.user.info == null">Pridat jedlo</b-nav-item>
+            <b-nav-item to="/food/create" :disabled="$store.state.user.info == null">Pridať jedlo</b-nav-item>
             <b-nav-item to="/reviews" :disabled="$store.state.user.info == null">Moje recenzie</b-nav-item>
           </b-navbar-nav>
 

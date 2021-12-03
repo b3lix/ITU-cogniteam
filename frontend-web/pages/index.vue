@@ -8,7 +8,7 @@
         <b-form-input v-model="formData.value" type="text" placeholder="Vyhľadávanie podľa Názvu / Zdroju / Čiarového kódu" @keyup="search"></b-form-input>
         <b-select v-model="formData.type" @change="search">
             <option value="0">Polotovar</option>
-            <option value="1">Restauracia</option>
+            <option value="1">Reštaurácia</option>
         </b-select>
         <b-input-group-append>
           <b-button variant="primary" type="button" @click="$store.commit('food/toggleSort'); search()"><font-awesome-icon :icon="$store.state.food.ascending ? 'sort-amount-down' : 'sort-amount-up'"></font-awesome-icon></b-button>
