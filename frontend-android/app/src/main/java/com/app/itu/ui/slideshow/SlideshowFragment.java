@@ -1,5 +1,6 @@
 package com.app.itu.ui.slideshow;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,14 +103,65 @@ public class SlideshowFragment extends Fragment {
                 @Override
                 public boolean onChildClick(ExpandableListView parent, View v,
                                             int groupPosition, int childPosition, long id) {
-                    Toast.makeText(
-                            root.getContext(),
-                            expandableListTitle.get(groupPosition)
-                                    + " -> "
-                                    + expandableListDetail.get(
-                                    expandableListTitle.get(groupPosition)).get(
-                                    childPosition), Toast.LENGTH_SHORT
-                    ).show();
+                    String [] tmp = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).split(":");
+                    String operation = tmp[0];
+                    if (operation.equals("PRIDAŤ DO OBĽÚBENÝCH"))
+                    {
+                        if (!Singleton.getInstance().cookieHeader.isEmpty())
+                        {
+                            Singleton.getInstance().setUrlOperation("/food/favourite/" + id);
+                            try {
+                                jsonRequest.postMethod(root.getContext(),new JsonRequest.VolleyCallBack() {
+                                    @Override
+                                    public void onSuccess() throws JSONException
+                                    {
+                                        Toast.makeText(root.getContext(),"Added to your favorite !",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(root.getContext(),"You must be logged in for add to favorite !",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else if (operation.equals("OBĽÚBENÉ"))
+                    {
+                        Singleton.getInstance().setUrlOperation("/food/favourite/" + id);
+                        try {
+                            jsonRequest.postMethod(root.getContext(),new JsonRequest.VolleyCallBack() {
+                                @Override
+                                public void onSuccess() throws JSONException
+                                {
+                                    Toast.makeText(root.getContext(),"Removed from your favorite !",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if (operation.equals("PREZERAŤ REZENCIE")) {
+                        String jsonOut = Singleton.getInstance().jsonOut;
+                        try {
+                            JSONObject json = new JSONObject(jsonOut);
+                            JSONArray jsonArr = json.getJSONArray("reviews");
+                            JSONObject reviews = (JSONObject) jsonArr.get(0);
+                            String reviweId = reviews.get("id").toString();
+                            String date = reviews.get("date").toString();
+                            String user = reviews.get("user").toString();
+                            String rating = reviews.get("rating").toString();
+                            String description = reviews.get("description").toString();
+                            String posPoints = reviews.get("positive_points").toString();
+                            String negPoints = reviews.get("negative_points").toString();
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setMessage(reviweId + "\nDátum:\n" + date + "\nPoužívateľ:\n" + user + "\nHodnotenie:\n" + rating + "\nPopis:\n" + description + "\nPlusy:\n" + posPoints + "\nMínusy:\n" + negPoints + "\n").setTitle("Recenzie").show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     return false;
                 }
             });
