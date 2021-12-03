@@ -94,6 +94,17 @@ public class HomeFragment extends Fragment {
                         JSONObject jsonObject = new JSONObject(Singleton.getInstance().jsonOut);
                         JSONArray tmp = jsonObject.getJSONArray("food");
                         expandableListDataPump.expandableListDetailObject.clear();
+                        if (tmp.length() == 0)
+                        {
+                            expandableListDataPump.expandableListDetailObject.clear();
+                            expandableListDetail = expandableListDataPump.expandableListDetailObject;
+
+                            expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+                            expandableListAdapter = new CustomExpandableListAdapter(root.getContext(), expandableListTitle, expandableListDetail);
+                            expandableListView.setAdapter(expandableListAdapter);
+                            Toast.makeText(root.getContext(),"Nebolo nič nájdené !",Toast.LENGTH_SHORT).show();
+                        }
+
                         expandableListDataPump.getData(tmp, getContext(), new ExpandableListDataPump.DataCallBack() {
                             @Override
                             public void onSuccess() throws JSONException {
@@ -107,7 +118,8 @@ public class HomeFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFail() {
+                    public void onFail()
+                    {
 
                     }
                 }, Integer.toString(operation), query);
