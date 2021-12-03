@@ -90,6 +90,10 @@ public class VolleyJsonRequest {
                 if (object instanceof JSONObject) {
                     listener.onResponse(statusCode, headers, (JSONObject) object, null, this.volleyCallBack);
                 }
+                else if (object instanceof String)
+                {
+
+                }
                 else
                 {
                     listener.onResponse(statusCode, headers, null, (JSONArray) object, this.volleyCallBack);

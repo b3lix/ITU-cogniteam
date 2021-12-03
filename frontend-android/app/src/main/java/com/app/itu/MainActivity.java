@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 Button tmpButt =(Button)findViewById(R.id.buttonAcc);
                 String actionText = (String) tmpButt.getText();
+
                 if (actionText.equals("Log in"))
                 {
                     Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
@@ -143,14 +146,23 @@ public class MainActivity extends AppCompatActivity {
 
                 // get String data from Intent
                 String returnString = data.getStringExtra("status_logged_in");
-                String username = data.getStringExtra("username");
-                Singleton.getInstance().username = username;
-                Button button = (Button)findViewById(R.id.buttonAcc);
-                button.setText(returnString);
+                if (returnString.equals("Log out"))
+                {
+                    String username = data.getStringExtra("username");
+                    Singleton.getInstance().username = username;
+                    Button button = (Button)findViewById(R.id.buttonAcc);
+                    button.setText(returnString);
 
-                button.setBackgroundColor(Color.GREEN);
-                TextView textView = (TextView)findViewById(R.id.textView);
-                textView.setText(username);
+                    button.setBackgroundColor(Color.GREEN);
+                    TextView textView = (TextView)findViewById(R.id.textView);
+                    textView.setText(username);
+                    Toast.makeText(getApplicationContext(),"Log in successful !", Toast.LENGTH_SHORT).show();
+                }
+                else if (returnString.equals("Register"))
+                {
+                    String username = data.getStringExtra("username");
+                    Toast.makeText(getApplicationContext(),"Hello " + username + " now you can log in !", Toast.LENGTH_SHORT).show();
+                }
 
                 // set text view with string
             }

@@ -18,10 +18,11 @@ import org.json.JSONException;
 
 public class LoginActivity extends AppCompatActivity
 {
-
+    private static final int REGISTER_ACTIVITY_REQUEST_CODE = 11;
     EditText username;
     EditText password;
     Button login;
+    Button register;
     JsonRequest jsonRequest = new JsonRequest();
 
     private void setupUI()
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity
         username = findViewById(R.id.editTextTextPersonName);
         password = findViewById(R.id.editTextTextPassword);
         login = findViewById(R.id.activityButtonLogin);
+        register = findViewById(R.id.activityButtonRegister);
     }
 
     @Override
@@ -74,6 +76,56 @@ public class LoginActivity extends AppCompatActivity
                             public void onSuccess() throws JSONException {
 
                                 String stringToPassBack = "Log out";
+                                Intent intent = new Intent();
+                                intent.putExtra("status_logged_in", stringToPassBack);
+                                intent.putExtra("username", usernameText.toString());
+
+                                setResult(RESULT_OK, intent);
+
+                                finish();
+
+                            }
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isValid = true;
+
+                Editable usernameText = username.getText();
+                if (usernameText.toString().isEmpty() || usernameText.toString().length() < 3)
+                {
+                    username.setError("You must enter valid username ! At least 3 chars long !");
+                    isValid = false;
+                }
+
+                Editable passwordText = password.getText();
+                if(passwordText.toString().isEmpty() || passwordText.toString().length() < 3)
+                {
+                    password.setError("You must enter valid password ! At least 3 chars long !");
+                    isValid = false;
+                }
+                if (isValid)
+                {
+                    Singleton.getInstance().setUrlOperation("/auth/register");
+                    Singleton.getInstance().requestBody = "{\n" +
+                            "  \"username\":" + "\"" + usernameText.toString() + "\",\n" +
+                            "  \"password\":" + "\"" + passwordText.toString() + "\",\n" +
+                            "  \"Content-Type\":\"application/json\",\n" +
+                            "  \"skipCrossSell\":true\n" +
+                            "}";
+                    try {
+                        jsonRequest.postMethod(v.getContext(), new JsonRequest.VolleyCallBack() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onSuccess() throws JSONException {
+
+                                String stringToPassBack = "Register";
                                 Intent intent = new Intent();
                                 intent.putExtra("status_logged_in", stringToPassBack);
                                 intent.putExtra("username", usernameText.toString());
