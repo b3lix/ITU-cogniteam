@@ -51,14 +51,14 @@ public class LoginActivity extends AppCompatActivity
                 Editable usernameText = username.getText();
                 if (usernameText.toString().isEmpty() || usernameText.toString().length() < 3)
                 {
-                    username.setError("You must enter valid username ! At least 3 chars long !");
+                    username.setError("Musíš zadat validné meno ! Dlhé min. 3 znaky");
                     isValid = false;
                 }
 
                 Editable passwordText = password.getText();
                 if(passwordText.toString().isEmpty() || passwordText.toString().length() < 3)
                 {
-                    password.setError("You must enter valid password ! At least 3 chars long !");
+                    password.setError("Musíš zadat validné heslo ! Dlhé min. 3 znaky");
                     isValid = false;
                 }
                 if(isValid)
@@ -107,14 +107,14 @@ public class LoginActivity extends AppCompatActivity
                 Editable usernameText = username.getText();
                 if (usernameText.toString().isEmpty() || usernameText.toString().length() < 3)
                 {
-                    username.setError("You must enter valid username ! At least 3 chars long !");
+                    username.setError("Musíš zadat validné meno ! Dlhé min. 3 znaky");
                     isValid = false;
                 }
 
                 Editable passwordText = password.getText();
                 if(passwordText.toString().isEmpty() || passwordText.toString().length() < 3)
                 {
-                    password.setError("You must enter valid password ! At least 3 chars long !");
+                    password.setError("Musíš zadat validné heslo ! Dlhé min. 3 znaky");
                     isValid = false;
                 }
                 if (isValid)

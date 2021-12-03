@@ -91,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
                                                 button.setText("Log in");
                                                 Singleton.getInstance().cookieHeader = "";
                                                 button.setBackgroundColor(Color.parseColor("#FF673AB7"));
+                                                TextView textView = (TextView)findViewById(R.id.textView);
+                                                textView.setText("");
                                                 Snackbar.make(view, "Successfully log out !", Snackbar.LENGTH_LONG)
                                                         .setAction("Action", null).show();
                                             }

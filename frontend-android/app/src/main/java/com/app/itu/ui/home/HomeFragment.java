@@ -152,18 +152,18 @@ public class HomeFragment extends Fragment {
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(root.getContext(),
-                        expandableListTitle.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(root.getContext(),
+//                        expandableListTitle.get(groupPosition) + " List Expanded.",
+//                        Toast.LENGTH_SHORT).show();
             }
         });
 
         expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(root.getContext(),
-                        expandableListTitle.get(groupPosition) + " List Collapsed.",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(root.getContext(),
+//                        expandableListTitle.get(groupPosition) + " List Collapsed.",
+//                        Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -205,7 +205,9 @@ public class HomeFragment extends Fragment {
                 }
                 else if (operation.equals("OBĽÚBENÉ"))
                 {
-                    Singleton.getInstance().setUrlOperation("/food/favourite/" + id);
+                    String idFav = tmp[1].substring(1);
+                    if (!Singleton.getInstance().cookieHeader.isEmpty())
+                    Singleton.getInstance().setUrlOperation("/food/favourite/" + idFav);
                     try {
                         jsonRequest.postMethod(root.getContext(),new JsonRequest.VolleyCallBack() {
                             @Override
