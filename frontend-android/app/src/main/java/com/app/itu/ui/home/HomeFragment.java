@@ -76,6 +76,15 @@ public class HomeFragment extends Fragment {
                 {
                     operation = 1;
                 }
+                else if (binding.radioButton.isChecked())
+                {
+                    operation = 0;
+                }
+                else
+                {
+                    Toast.makeText(root.getContext(),"Nebola zvolená možnosť reštarácia alebo obchod !",Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 Singleton.getInstance().setUrlOperation("/food/get");
 
                 jsonRequest.getMethod(getContext(), new JsonRequest.VolleyCallBack() {
@@ -158,11 +167,12 @@ public class HomeFragment extends Fragment {
 
                 String [] tmp = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).split(":");
                 String operation = tmp[0];
+                String id_fav = tmp[1].substring(1);
                 if (operation.equals("PRIDAŤ DO OBĽÚBENÝCH"))
                 {
                     if (!Singleton.getInstance().cookieHeader.isEmpty())
                     {
-                        Singleton.getInstance().setUrlOperation("/food/favourite/" + id);
+                        Singleton.getInstance().setUrlOperation("/food/favourite/" + tmp[1]);
                         try {
                             jsonRequest.postMethod(root.getContext(),new JsonRequest.VolleyCallBack() {
                                 @Override
