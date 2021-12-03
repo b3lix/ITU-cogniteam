@@ -172,7 +172,7 @@ public class HomeFragment extends Fragment {
                 {
                     if (!Singleton.getInstance().cookieHeader.isEmpty())
                     {
-                        Singleton.getInstance().setUrlOperation("/food/favourite/" + tmp[1]);
+                        Singleton.getInstance().setUrlOperation("/food/favourite/" + id_fav);
                         try {
                             jsonRequest.postMethod(root.getContext(),new JsonRequest.VolleyCallBack() {
                                 @Override
