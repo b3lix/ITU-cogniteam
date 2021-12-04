@@ -24,31 +24,32 @@ public class ExpandableListDataPump {
             try {
 
                 JSONObject object = jsonArray.getJSONObject(i);
-                String foodName = object.get("name").toString();
-                List<String> foodInfo = new ArrayList<String>();
-                String foodSource = object.get("source").toString();
-                String numberOfReviews = object.get("reviews").toString();
-                JSONObject average = object.getJSONObject("average");
-                String averagePrice = average.get("price").toString();
-                String averageRating = average.get("rating").toString();
+                JSONObject food = object.getJSONObject("food");
+                String foodName = food.get("name").toString();
+                List<String> reviewInfo = new ArrayList<String>();
+                String foodId = food.get("id").toString();
+                String foodSource = food.get("source").toString();
+                String foodType = food.get("type").toString();
+                String foodPrice = object.get("price").toString();
+                String reviewId = object.get("id").toString();
+                String date = object.get("date").toString();
+                String rating = object.get("rating").toString();
+                String description = object.get("description").toString();
+                String negPoints = object.get("negative_points").toString();
+                String posPoints = object.get("positive_points").toString();
 
-                String id = object.getString("id");
+                reviewInfo.add(String.format("ID jedla: %s", foodId));
+                reviewInfo.add(String.format("Zdroj: %s", foodSource));
+                reviewInfo.add(String.format("Typ jedla: %s", foodType));
+                reviewInfo.add(String.format("Cena: %s", foodPrice));
+                reviewInfo.add(String.format("ID recenzie: %s", reviewId));
+                reviewInfo.add(String.format("Dátum recenzie %s", date));
+                reviewInfo.add(String.format("Hodnotenie: %s/5.00", rating));
+                reviewInfo.add(String.format("Popis: %s", description));
+                reviewInfo.add(String.format("Plusy: %s", posPoints));
+                reviewInfo.add(String.format("Mínusy: %s", negPoints));
 
-                foodInfo.add(String.format("Zdroj: %s", foodSource));
-                foodInfo.add(String.format("Počet recenzií: %s", numberOfReviews));
-                foodInfo.add(String.format("Priemerná cena: %s", averagePrice));
-                foodInfo.add(String.format("Priemerné hodnotenie: %s/10.00", averageRating));
-
-                String favourite = object.get("favourite").toString();
-                if (favourite.equals("null")) {
-                    foodInfo.add(String.format("PRIDAŤ DO OBĽÚBENÝCH: %s", id));
-                }
-                else
-                {
-                    foodInfo.add(String.format("OBĽÚBENÉ: %s", id));
-                }
-
-                expandableListDetail.put(foodName, foodInfo);
+                expandableListDetail.put(foodName, reviewInfo);
 
             } catch (JSONException e) {
                 e.printStackTrace();

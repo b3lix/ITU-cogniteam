@@ -72,7 +72,7 @@ public class SlideshowFragment extends Fragment {
                 public void onSuccess() throws JSONException {
 
                     JSONObject jsonObject = new JSONObject(Singleton.getInstance().jsonOut);
-                    JSONArray tmp = jsonObject.getJSONArray("food");
+                    JSONArray tmp = jsonObject.getJSONArray("reviews");
 
                     expandableListDetail = expandableListDataPump.getData(tmp, true);
                     expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
@@ -120,7 +120,7 @@ public class SlideshowFragment extends Fragment {
                                     @Override
                                     public void onSuccess() throws JSONException
                                     {
-                                        Toast.makeText(root.getContext(),"Added to your favorite !",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(root.getContext(),"Added to your favourites!",Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
@@ -134,7 +134,7 @@ public class SlideshowFragment extends Fragment {
                         }
                         else
                         {
-                            Toast.makeText(root.getContext(),"You must be logged in for add to favorite !",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(root.getContext(),"You must be logged in for adding to favourites!",Toast.LENGTH_SHORT).show();
                         }
                     }
                     else if (operation.equals("OBĽÚBENÉ"))
@@ -145,7 +145,7 @@ public class SlideshowFragment extends Fragment {
                                 @Override
                                 public void onSuccess() throws JSONException
                                 {
-                                    Toast.makeText(root.getContext(),"Removed from your favorite !",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(root.getContext(),"Removed from your favourites!",Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
