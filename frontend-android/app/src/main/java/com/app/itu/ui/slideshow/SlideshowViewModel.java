@@ -1,3 +1,9 @@
+/*
+ *   Projekt ITU
+ *       Autori:
+ *           xslesa01 (Michal Šlesár)
+ */
+
 package com.app.itu.ui.slideshow;
 
 import androidx.lifecycle.LiveData;

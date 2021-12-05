@@ -1,3 +1,8 @@
+/*
+ *   Projekt ITU
+ *       Autori:
+ *           xslesa01 (Michal Šlesár)
+ */
 package com.app.itu;
 
 import android.annotation.SuppressLint;
@@ -46,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Kontaktujte nás example.email@smthg.com !", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -93,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                                                 button.setBackgroundColor(Color.parseColor("#FF673AB7"));
                                                 TextView textView = (TextView)findViewById(R.id.textView);
                                                 textView.setText("");
-                                                Snackbar.make(view, "Successfully log out !", Snackbar.LENGTH_LONG)
+                                                Snackbar.make(view, "Odhlásenie bolo úspešné !", Snackbar.LENGTH_LONG)
                                                         .setAction("Action", null).show();
                                             }
 
@@ -115,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     };
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setMessage("Are you sure to log out ?").setPositiveButton("Yes", dialogClickListener)
+                    builder.setMessage("Ste si istý, že sa chcete odhlásiť ?").setPositiveButton("Yes", dialogClickListener)
                             .setNegativeButton("No", dialogClickListener).show();
                 }
 
@@ -167,12 +172,12 @@ public class MainActivity extends AppCompatActivity {
                     button.setBackgroundColor(Color.GREEN);
                     TextView textView = (TextView)findViewById(R.id.textView);
                     textView.setText(username);
-                    Toast.makeText(getApplicationContext(),"Log in successful !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Prihlásenie bolo úspešné !", Toast.LENGTH_SHORT).show();
                 }
                 else if (returnString.equals("Register"))
                 {
                     String username = data.getStringExtra("username");
-                    Toast.makeText(getApplicationContext(),"Hello " + username + " now you can log in !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Ahoj " + username + " si prihlásený !", Toast.LENGTH_SHORT).show();
                 }
 
                 // set text view with string

@@ -1,3 +1,10 @@
+
+/*
+ *   Projekt ITU
+ *       Autori:
+ *           xslesa01 (Michal Šlesár)
+ */
+
 package com.app.itu.ui.slideshow;
 
 import android.app.AlertDialog;

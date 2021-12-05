@@ -1,3 +1,8 @@
+/*
+ *   Projekt ITU
+ *       Autori:
+ *           xslesa01 (Michal Šlesár)
+ */
 package com.app.itu;
 
 import android.annotation.SuppressLint;
@@ -70,13 +75,13 @@ public class AddItemActivity extends AppCompatActivity
                     Editable getFoodNameText = getFoodName.getText();
                     if (getFoodNameText.toString().isEmpty())
                     {
-                        getFoodName.setError("This field cannot be empty!");
+                        getFoodName.setError("Toto pole  nemôže byť prázdne !");
                         isValid = false;
                     }
                     Editable getFoodSourceText = getFoodSource.getText();
                     if (getFoodSourceText.toString().isEmpty())
                     {
-                        getFoodSource.setError("This field cannot be empty!");
+                        getFoodSource.setError("Toto pole  nemôže byť prázdne !");
                         isValid = false;
                     }
                     if (getFoodType0.isChecked())
@@ -90,13 +95,13 @@ public class AddItemActivity extends AppCompatActivity
                     Editable getFoodDescriptionText = getFoodDescription.getText();
                     if (getFoodDescriptionText.toString().isEmpty())
                     {
-                        getFoodDescription.setError("This field cannot be empty!");
+                        getFoodDescription.setError("Toto pole  nemôže byť prázdne !");
                         isValid = false;
                     }
                     Editable getFoodReviewMsgText = getFoodReviewMsg.getText();
                     if (getFoodReviewMsgText.toString().isEmpty())
                     {
-                        getFoodReviewMsg.setError("This field cannot be empty!");
+                        getFoodReviewMsg.setError("Toto pole  nemôže byť prázdne !");
                         isValid = false;
                     }
                     float getFoodReviewRatingRate = getFoodReviewRating.getRating();
@@ -105,12 +110,12 @@ public class AddItemActivity extends AppCompatActivity
                     Editable getFoodReviewRatingNegText = getFoodReviewRatingNeg.getText();
                     if (getFoodReviewRatingNegText.toString().isEmpty())
                     {
-                        getFoodReviewRatingNeg.setError("This field cannot be empty!");
+                        getFoodReviewRatingNeg.setError("Toto pole  nemôže byť prázdne !");
                     }
                     Editable getFoodReviewRatingPosText = getFoodReviewRatingPos.getText();
                     if (getFoodReviewRatingPosText.toString().isEmpty())
                     {
-                        getFoodReviewRatingPos.setError("This field cannot be empty!");
+                        getFoodReviewRatingPos.setError("Toto pole  nemôže byť prázdne !");
                     }
 
 
@@ -155,7 +160,7 @@ public class AddItemActivity extends AppCompatActivity
                 }
                 else
                 {
-                    Snackbar.make(v, "You must be logged in !", Snackbar.LENGTH_LONG)
+                    Snackbar.make(v, "Musíš byť prihlásený !", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }

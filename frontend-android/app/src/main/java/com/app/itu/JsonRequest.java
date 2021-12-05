@@ -1,3 +1,10 @@
+
+/*
+ *  Projekt ITU
+ *      Autori:
+ *          xnosko06 (Matúš Nosko)
+ */
+
 package com.app.itu;
 
 import android.content.Context;

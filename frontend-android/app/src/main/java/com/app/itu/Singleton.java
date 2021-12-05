@@ -1,3 +1,10 @@
+
+/*
+ *  Projekt ITU
+ *      Autori:
+ *          xnosko06 (Matúš Nosko)
+ */
+
 package com.app.itu;
 
 public class Singleton {
@@ -19,8 +26,8 @@ public class Singleton {
         authFlag = true;
         operation = "";
         requestBody = "{\n" +
-            "  \"username\":\"admin\",\n" +
-            "  \"password\":\"admin\",\n" +
+            "  \"username\":\"Peter\",\n" +
+            "  \"password\":\"peter\",\n" +
             "  \"Content-Type\":\"application/json\",\n"+
             "  \"skipCrossSell\":true\n" +
             "}";

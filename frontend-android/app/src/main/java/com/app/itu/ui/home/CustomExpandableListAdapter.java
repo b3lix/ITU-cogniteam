@@ -1,3 +1,8 @@
+/*
+ *   Projekt ITU
+ *       Autori:
+ *           xbelko02 (Belko Erik)
+ */
 package com.app.itu.ui.home;
 
 import android.content.Context;

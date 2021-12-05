@@ -1,3 +1,8 @@
+/*
+ *   Projekt ITU
+ *       Autori:
+ *           xbelko02 (Belko Erik)
+ */
 package com.app.itu.ui.gallery;
 
 import androidx.lifecycle.LiveData;

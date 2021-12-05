@@ -1,3 +1,8 @@
+/*
+ *   Projekt ITU
+ *       Autori:
+ *           xbelko02 (Belko Erik)
+ */
 package com.app.itu.ui.home;
 
 import static android.app.Activity.RESULT_OK;

@@ -1,3 +1,10 @@
+
+/*
+ *  Projekt ITU
+ *      Autori:
+ *          xnosko06 (Matúš Nosko)
+ */
+
 package com.app.itu;
 
 import android.annotation.SuppressLint;
@@ -154,14 +161,6 @@ public class LoginActivity extends AppCompatActivity
                 }
             }
         });
-
-//        register.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
-//                //startActivity(i);
-//            }
-//        });
     }
 
 }
