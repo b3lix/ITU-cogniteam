@@ -23,7 +23,7 @@ Autori:
       </b-input-group>
     </b-form>
     <hr>
-    <template v-if="$store.state.food.items.length == 0">
+    <template v-if="$store.state.food.items.length == 0 && !loading">
       <b-alert variant="info" show>
         Nenašli sa žiadne položky
       </b-alert>
@@ -56,6 +56,7 @@ export default {
   layout: "default",
   data() {
     return {
+      loading: false,
       error: null,
 
       formData: this.$_.cloneDeep(this.$store.state.food.filter),
@@ -69,14 +70,17 @@ export default {
   methods: {
     // Search food
     search() {
+      this.loading = true;
       this.error = null;
 
       this.$store.commit("food/clear");
       this.$store.commit("food/setFilter", this.$_.cloneDeep(this.formData));
       this.$axios.get("/food/get", {params: this.formData}).then(response => {
         this.$store.commit("food/add", this.$_.cloneDeep(response.data.food));
+        this.loading = false;
       }).catch(e => {
         this.error = e.response.data?.message ?? "Nepodarilo sa získať polozky";
+        this.loading = false;
       });
     },
     // Toggle favourite food
