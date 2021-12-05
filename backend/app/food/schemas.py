@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xbelko02 (Erik Belko)
+
 # Pydantic related imports
 from typing import Optional, List
 from pydantic import BaseModel, constr, conint

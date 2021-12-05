@@ -1,3 +1,10 @@
+<!--
+Projekt ITU
+Autori:
+  xbelko02 (Erik Belko)
+  xnosko06 (Matúš Nosko)
+-->
+
 <template>
 	<b-container>
     <b-alert v-if="reviews.length == 0" show>
@@ -12,7 +19,7 @@
 							<div style="font-size: 12px;">{{ review.date }}</div>
 							<div style="font-size: 14px;">
 								<font-awesome-icon icon="dollar-sign"></font-awesome-icon> 
-								{{ review.price }} Kč
+								{{ review.price == null ? "Nezadaná" : review.price + "Kč" }}
 							</div>
 						</div>
 						<div class="col-auto">
@@ -126,10 +133,12 @@ export default {
     this.fetchData();
   },
   methods: {
+    // Fetch reviews
 	  async fetchData() {
       let result = await this.$axios.get(`/reviews/my`);
       this.reviews = result.data.reviews;
     },
+    // Update review details
 	  updateReview() {
         this.updateError = null;
 

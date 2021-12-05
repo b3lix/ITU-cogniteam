@@ -1,3 +1,9 @@
+<!--
+Projekt ITU
+Autori:
+  xslesa01 (Michal Šlesár)
+-->
+
 <template>
   <b-container v-if="loaded">
     <div>
@@ -90,6 +96,7 @@ export default {
     await this.fetchInfo();
   },
   methods: {
+    // Load user info
     async fetchInfo() {
       this.$axios.get("/auth/info").then(response => {
         this.$store.commit("user/setInfo", response.data);
@@ -101,6 +108,7 @@ export default {
           this.loaded = true; 
       })
     },
+    // Login user with provided credentials
     async login() {
       this.login_error = null;
 
@@ -111,6 +119,7 @@ export default {
         this.login_error = e.response.data?.message ?? "Neočakávaná chyba";
       });
     },
+    // Register user with provided credentials
     async register() {
       this.register_error = null;
 
@@ -120,6 +129,7 @@ export default {
         this.register_error = e.response.data?.message ?? "Neočakávaná chyba";
       });
     },
+    // Logout user
     logout() {
       this.$axios.post("/auth/logout");
       this.$store.commit("food/clear");

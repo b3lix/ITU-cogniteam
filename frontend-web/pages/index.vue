@@ -1,3 +1,9 @@
+<!--
+Projekt ITU
+Autori:
+  xslesa01 (Michal Šlesár)
+-->
+
 <template>
   <b-container>
     <b-alert variant="danger" v-show="error !== null" show>
@@ -17,7 +23,7 @@
       </b-input-group>
     </b-form>
     <hr>
-    <template v-if="$store.state.food.items.length == 0">
+    <template v-if="$store.state.food.items.length == 0 && !loading">
       <b-alert variant="info" show>
         Nenašli sa žiadne položky
       </b-alert>
@@ -35,7 +41,7 @@
       </span>
       </div>
       <div>Recenzií: {{ meal.reviews }}</div>
-      <div><i>Priemerná cena:</i> <font-awesome-icon icon="dollar-sign"></font-awesome-icon> <strong>{{ meal.average.price}} Kč</strong></div>
+      <div><i>Priemerná cena:</i> <font-awesome-icon icon="dollar-sign"></font-awesome-icon> <strong>{{ meal.average.price == null ? "Neznáma" : meal.average.price + "Kč" }}</strong></div>
       <div><i>Priemerné hodnotenie:</i> <font-awesome-icon icon="star"></font-awesome-icon> <strong>{{ meal.average.rating }} / 5</strong></div>
       <hr>
     </div>
@@ -50,6 +56,7 @@ export default {
   layout: "default",
   data() {
     return {
+      loading: false,
       error: null,
 
       formData: this.$_.cloneDeep(this.$store.state.food.filter),
@@ -61,18 +68,22 @@ export default {
     this.search();
   },
   methods: {
+    // Search food
     search() {
-      console.log("wtf");
+      this.loading = true;
       this.error = null;
 
       this.$store.commit("food/clear");
       this.$store.commit("food/setFilter", this.$_.cloneDeep(this.formData));
       this.$axios.get("/food/get", {params: this.formData}).then(response => {
         this.$store.commit("food/add", this.$_.cloneDeep(response.data.food));
+        this.loading = false;
       }).catch(e => {
         this.error = e.response.data?.message ?? "Nepodarilo sa získať polozky";
+        this.loading = false;
       });
     },
+    // Toggle favourite food
     favourite(id) {
       this.$axios.post(`/food/favourite/${id}`).then(response => {
         this.$store.commit("food/favourite", id);

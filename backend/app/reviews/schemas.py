@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xslesa01 (Michal Šlesár)
+
 # Standard library imports
 from typing import List, Optional
 

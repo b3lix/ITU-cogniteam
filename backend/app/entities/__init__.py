@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xslesa01 (Michal Šlesár)
+
 # SQLalchemy related imports
 from sqlalchemy.ext.declarative import declarative_base
 

@@ -1,3 +1,9 @@
+# Projekt ITU
+# Autori:
+#   xslesa01 (Michal Šlesár)
+#   xbelko02 (Erik Belko)
+#   xnosko06 (Matúš Nosko)
+
 # Flask related imports
 from flask_login import UserMixin
 

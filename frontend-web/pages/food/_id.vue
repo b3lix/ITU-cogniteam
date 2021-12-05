@@ -1,3 +1,9 @@
+<!--
+Projekt ITU
+Autori:
+  xslesa01 (Michal Šlesár)
+-->
+
 <template>
   <b-container>
     <div v-if="meal != null">
@@ -5,9 +11,11 @@
         <div><strong>Zdroj:</strong> {{ meal.source }}</div>
         <div><strong>Typ:</strong> {{ meal.type == "1" ? "Reštaurácia" : "Polotovar" }}</div>
         <br>
+        <div><strong>Počet recenzií: </strong>{{ reviews.length }}</div>
+        <br>
         <p>{{ meal.description }}</p>
         <br>
-        <div><strong>Priemerná cena: <font-awesome-icon icon="dollar-sign"></font-awesome-icon></strong> {{ meal.average.price }} Kč</div>
+        <div><strong>Priemerná cena: <font-awesome-icon icon="dollar-sign"></font-awesome-icon></strong> {{ meal.average.price == null ? "Neznáma" : meal.average.price + "Kč" }}</div>
         <div><strong>Priemerná hodnotenie:</strong> <font-awesome-icon icon="star"></font-awesome-icon> {{ meal.average.rating }} / 5</div>
     </div>
     <hr>
@@ -20,7 +28,7 @@
                         <div style="font-size: 12px;">{{ my_review.date }}</div>
                         <div style="font-size: 14px;">
                             <font-awesome-icon icon="dollar-sign"></font-awesome-icon> 
-                            {{ my_review.price }} Kč
+                            {{ my_review.price == null ? "Nezadaná" : my_review.price + "Kč" }}
                         </div>
                     </div>
                     <div class="col-auto">
@@ -152,7 +160,7 @@
         </b-modal>
     </div>
     <hr>
-    <h3>Všetky recenzie:</h3>
+    <h3>Všetky recenzie ({{ reviews.length }}):</h3>
     <hr>
     <b-row v-for="review in reviews" :key="review.id">
         <div class="col-sm-6 mt-2">
@@ -163,7 +171,7 @@
                         <div style="font-size: 12px;">{{ review.date }}</div>
                         <div style="font-size: 14px;">
                             <font-awesome-icon icon="dollar-sign"></font-awesome-icon> 
-                            {{ review.price }} Kč
+                            {{ review.price == null ? "Nezadaná" : review.price + "Kč" }}
                         </div>
                     </div>
                     <div class="col-auto">
@@ -226,6 +234,7 @@ export default {
     this.fetchData();
   },
   methods: {
+      // Fetch reviews and meal details
       async fetchData() {
         let result = await this.$axios.get(`/food/get/${this.id}`);
         this.meal = result.data;
@@ -238,6 +247,7 @@ export default {
         result = await this.$axios.get(`/reviews/get/${this.id}`);
         this.reviews = result.data.reviews;
       },
+      // Create review
       createReview() {
         this.insertError = null;
 
@@ -248,6 +258,7 @@ export default {
             this.insertError = e.response.data?.message ?? "Nepodarilo sa pridat recenziu";
         });
     },
+    // Update review details
     updateReview() {
         this.updateError = null;
 

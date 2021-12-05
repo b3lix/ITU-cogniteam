@@ -1,3 +1,9 @@
+<!--
+Projekt ITU
+Autori:
+  xslesa01 (Michal Šlesár)
+-->
+
 <template>
   <b-container>
     <b-alert variant="danger" v-show="error !== null" show>
@@ -46,7 +52,7 @@
         </b-form-group>
         <b-form-group>
           <label>Cena [Kč]:</label>
-          <b-form-input v-model="formData.review.price" type="number" placeholder="Cena" required></b-form-input>
+          <b-form-input v-model="formData.review.price" type="number" placeholder="Cena"></b-form-input>
         </b-form-group>
         <b-form-group>
           <label>Hodnotenie [0-5]:</label>
@@ -121,6 +127,7 @@ export default {
     this.step = 0
   },
   methods: {
+    // Create meal
     create() {
       this.$axios.post("food/create", this.formData).then(() => {
         //this.$router.push("/stations");

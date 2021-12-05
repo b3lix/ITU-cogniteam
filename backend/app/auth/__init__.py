@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xnosko06 (Matúš Nosko)
+
 # Flask related imports
 from flask import Blueprint
 

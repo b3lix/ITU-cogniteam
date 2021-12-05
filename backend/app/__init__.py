@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xslesa01 (Michal Šlesár)
+
 # Flask related imports
 from flask import Flask
 from flask_cors import CORS

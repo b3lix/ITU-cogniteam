@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xslesa01 (Michal Šlesár)
+
 # Pydantic related imports
 from typing import List
 
@@ -13,6 +17,7 @@ from app.entities.food import Food
 from app.reviews.model import create_review, get_reviews, get_user_review, get_user_reviews, update_review
 from app.reviews.schemas import CreateModel, UpdateModel
 
+# Create review endpoint
 @bp.route("/create", methods=["POST"])
 @login_required
 @validate()
@@ -25,6 +30,7 @@ def create(body: CreateModel):
     create_review(body.description, body.positive_points, body.negative_points, body.price, body.rating, body.food, current_user.id)
     return make_response(200)
 
+# Update review endpoint
 @bp.route("/update", methods=["POST"])
 @login_required
 @validate()
@@ -37,6 +43,7 @@ def update(body: UpdateModel):
     update_review(body.id, body.description, body.positive_points, body.negative_points, body.price, body.rating)
     return make_response(200)
 
+# Get specific review endpoint
 @bp.route("/get/<id>", methods=["GET"])
 def get_one(id: int):
     food: Food = Food.query.get(id)
@@ -57,6 +64,7 @@ def get_one(id: int):
         } for review in get_reviews(id)]
     })
 
+# Get all reviews of user endpoint
 @bp.route("/my", methods=["GET"])
 def my():
     if not current_user.is_authenticated:
@@ -80,6 +88,7 @@ def my():
         } for review in get_user_reviews(current_user.id)]
     })
 
+# Get review of user for specific food
 @bp.route("/my/<id>", methods=["GET"])
 def my_one(id: int):
     food: Food = Food.query.get(id)

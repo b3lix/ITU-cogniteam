@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xbelko02 (Erik Belko)
+
 # Flask related imports
 from flask import Blueprint
 

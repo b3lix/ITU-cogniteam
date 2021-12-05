@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xbelko02 (Erik Belko)
+
 # App related imports
 from app import session
 from app.entities.food import Food, FoodType
@@ -5,7 +9,7 @@ from app.entities.review import Review
 from app.food.schemas import FilterModel
 
 # SQLalchemy related imports
-from sqlalchemy import func, or_, and_, cast, String
+from sqlalchemy import func, or_, and_, cast, String, desc
 
 # App related imports
 from app.entities.favourite import Favourite
@@ -27,6 +31,7 @@ def create_food(name: str, source: str, description: str, type: FoodType, barcod
     session.refresh(food)
     return food
 
+# Get food
 def get_food(filter: FilterModel, user: int):
     query = session.query(Food, func.count(Review.id).label("reviews"), func.avg(Review.rating), func.avg(Review.price))
     query = query.join(Review, Review.food_id == Food.id)
@@ -43,10 +48,10 @@ def get_food(filter: FilterModel, user: int):
         else:
             query = query.outerjoin(Favourite, and_(Favourite.food_id == Food.id, Favourite.user_id == user))
 
-        query = query.order_by(Favourite.id, "reviews")
+        query = query.order_by(Favourite.id, desc("reviews"))
         query = query.group_by(Food.id, Favourite.id)
     else:
-        query = query.order_by("reviews")
+        query = query.order_by(desc("reviews"))
         query = query.group_by(Food.id)
 
     # If filter is provided
@@ -62,6 +67,7 @@ def get_food(filter: FilterModel, user: int):
 
     return query.all()
 
+# Get food and its reviews by id
 def get_food_by_id(id: int):
     return session.query(Food, func.count(Review.id), func.avg(Review.rating), func.avg(Review.price), Favourite.id)\
         .outerjoin(Favourite)\
@@ -70,6 +76,7 @@ def get_food_by_id(id: int):
         .group_by(Food.id, Favourite.id)\
         .first()
 
+# Toggle favourite on food
 def toggle_favourite(food: int, user: int) -> None:
     favourite: Favourite = Favourite.query.filter(Favourite.user_id == user).filter(Favourite.food_id == food).first()
 
