@@ -23,6 +23,7 @@ public class ExpandableListDataPump {
     JsonRequest jsonRequest = new JsonRequest();
     int finalI;
     public HashMap<String, List<String>> expandableListDetailObject = new HashMap<String, List<String>>();
+
     public HashMap<String, List<String>> getData(JSONArray jsonArray, boolean favoriteFlag)
     {
         for (int i = 0; i < jsonArray.length(); i++) {

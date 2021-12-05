@@ -1,8 +1,9 @@
 /*
- *   Projekt ITU
- *       Autori:
- *           xslesa01 (Michal Šlesár)
+ *  Projekt ITU
+ *      Autori:
+ *          xnosko06 (Matúš Nosko)
  */
+
 package com.app.itu;
 
 import android.annotation.SuppressLint;

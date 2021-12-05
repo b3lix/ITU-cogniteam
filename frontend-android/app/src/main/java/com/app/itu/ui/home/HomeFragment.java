@@ -244,29 +244,56 @@ public class HomeFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-                else if (operation.equals("PREZERAŤ REZENCIE")) {
+                else if (operation.equals("PREZERAŤ REZENCIE"))
+                {
                     String jsonOut = Singleton.getInstance().jsonOut;
-                    try {
-                        JSONObject json = new JSONObject(jsonOut);
-                        JSONArray jsonArr = json.getJSONArray("reviews");
-                        JSONObject reviews = (JSONObject) jsonArr.get(0);
-                        String reviewId = reviews.get("id").toString();
-                        String date = reviews.get("date").toString();
-                        String user = reviews.get("user").toString();
-                        String rating = reviews.get("rating").toString();
-                        String description = reviews.get("description").toString();
-                        String posPoints = reviews.get("positive_points").toString();
-                        String negPoints = reviews.get("negative_points").toString();
+                    List<String> childIdList = expandableListDetail.get(expandableListTitle.get(groupPosition));
+                    
+                    assert childIdList != null;
+                    String child = childIdList.get(6);
+                    child = child.split(":")[1].substring(1);
+                    expandableListView = (ExpandableListView) binding.expandableListView;
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setMessage(reviewId + "\nDátum:\n" + date + "\nPoužívateľ:\n" + user + "\nHodnotenie:\n" + rating + "\nPopis:\n" + description + "\nPlusy:\n" + posPoints + "\nMínusy:\n" + negPoints + "\n").setTitle("Recenzie").show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    Singleton.getInstance().setUrlOperation("/reviews/get/" + child);
+                    jsonRequest.getMethod(root.getContext(), new JsonRequest.VolleyCallBack() {
+                        @Override
+                        public void onSuccess() throws JSONException {
+
+                            JSONObject jsonObject = new JSONObject(Singleton.getInstance().jsonOut);
+                            JSONArray tmp = jsonObject.getJSONArray("reviews");
+
+                            StringBuilder outLong = new StringBuilder();
+                            for (int i = 0; i < tmp.length(); i++)
+                            {
+                                JSONObject object = tmp.getJSONObject(i);
+                                String reviewId = object.get("id").toString();
+                                String date = object.get("date").toString();
+                                String user = object.get("user").toString();
+                                String rating = object.get("rating").toString();
+                                String description = object.get("description").toString();
+                                String posPoints = object.get("positive_points").toString();
+                                String negPoints = object.get("negative_points").toString();
+
+                                String out = (reviewId + "\nDátum:\n" + date + "\nPoužívateľ:\n" + user + "\nHodnotenie:\n" + rating + "\nPopis:\n" + description + "\nPlusy:\n" + posPoints + "\nMínusy:\n" + negPoints + "\n");
+                                outLong.append("------------\n");
+                                outLong.append(out);
+                            }
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setMessage(outLong).setTitle("Recenzie").show();
+                        }
+
+                        @Override
+                        public void onFail() {
+
+                        }
+                    });
+
+
                 }
                 else if (operation.equals("PRIDAŤ RECENZIU")) {
                     List<String> childIdList = expandableListDetail.get(expandableListTitle.get(groupPosition));
                     String childId = "";
+                    assert childIdList != null;
                     for (String element : childIdList)
                     {
                         String splitted = element.split(":")[0];
