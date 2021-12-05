@@ -27,6 +27,7 @@ public class AddReviewActivity extends AppCompatActivity {
     EditText getFoodReviewRatingNeg;
     EditText getFoodReviewRatingPos;
     Button addReview;
+    String food_id;
 
     JsonRequest jsonRequest = new JsonRequest();
 
@@ -44,6 +45,11 @@ public class AddReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addreview);
+        Bundle b = getIntent().getExtras();
+        if (b != null)
+        {
+            food_id = b.getString("food_id");
+        }
         setupUI();
         setupListeners();
     }
@@ -62,13 +68,13 @@ public class AddReviewActivity extends AppCompatActivity {
                     Editable getFoodPriceText = getFoodPrice.getText();
                     if (getFoodPriceText.toString().isEmpty())
                     {
-                        getFoodPrice.setError("This field cannot be empty!");
+                        getFoodPrice.setError("Toto pole  nemôže byť prázdne !");
                         isValid = false;
                     }
                     Editable getFoodReviewMsgText = getFoodReviewMsg.getText();
                     if (getFoodReviewMsgText.toString().isEmpty())
                     {
-                        getFoodReviewMsg.setError("This field cannot be empty!");
+                        getFoodReviewMsg.setError("Toto pole  nemôže byť prázdne !");
                         isValid = false;
                     }
                     float getFoodReviewRatingRate = getFoodReviewRating.getRating();
@@ -77,24 +83,24 @@ public class AddReviewActivity extends AppCompatActivity {
                     Editable getFoodReviewRatingNegText = getFoodReviewRatingNeg.getText();
                     if (getFoodReviewRatingNegText.toString().isEmpty())
                     {
-                        getFoodReviewRatingNeg.setError("This field cannot be empty!");
+                        getFoodReviewRatingNeg.setError("Toto pole  nemôže byť prázdne !");
                     }
                     Editable getFoodReviewRatingPosText = getFoodReviewRatingPos.getText();
                     if (getFoodReviewRatingPosText.toString().isEmpty())
                     {
-                        getFoodReviewRatingPos.setError("This field cannot be empty!");
+                        getFoodReviewRatingPos.setError("Toto pole  nemôže byť prázdne !");
                     }
 
                     if (isValid)
                     {
 //                        tuto treba dostat id jedla
                         String testFood = "{\n" +
-                                " \"food\": " +"\"" + "cisloID" + "\",\n" +
+                                " \"food\": " +"\"" + food_id + "\",\n" +
                                 " \"description\": \"" + getFoodReviewMsgText +"\",\n" +
                                 " \"positive_points\": [\"" + getFoodReviewRatingPosText + "\"],\n" +
-                                " \"negative_points\": [\"" + getFoodReviewRatingNegText + "\"]\n" +
+                                " \"negative_points\": [\"" + getFoodReviewRatingNegText + "\"],\n" +
                                 " \"price\": \"" + getFoodPriceText +"\",\n" +
-                                " \"rating\": \"" + getFoodReviewRatingRateInt +"\",\n" +
+                                " \"rating\": \"" + getFoodReviewRatingRateInt +"\"\n" +
                                 " }";
 
                         Singleton.getInstance().requestBody = testFood;
@@ -124,7 +130,7 @@ public class AddReviewActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Snackbar.make(v, "You must be logged in !", Snackbar.LENGTH_LONG)
+                    Snackbar.make(v, "Musíš byť prihlásený !", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }

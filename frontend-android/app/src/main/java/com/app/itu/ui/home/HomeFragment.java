@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     JsonRequest jsonRequest = new JsonRequest();
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 1;
+    private static final int ADD_REVIEW_ACTIVITY_REQUEST_CODE = 2;
     private static final String TAG = HomeFragment.class.getSimpleName();
 
     private ExpandableListDataPump expandableListDataPump = new ExpandableListDataPump();
@@ -244,7 +245,7 @@ public class HomeFragment extends Fragment {
                         JSONObject json = new JSONObject(jsonOut);
                         JSONArray jsonArr = json.getJSONArray("reviews");
                         JSONObject reviews = (JSONObject) jsonArr.get(0);
-                        String reviweId = reviews.get("id").toString();
+                        String reviewId = reviews.get("id").toString();
                         String date = reviews.get("date").toString();
                         String user = reviews.get("user").toString();
                         String rating = reviews.get("rating").toString();
@@ -253,14 +254,28 @@ public class HomeFragment extends Fragment {
                         String negPoints = reviews.get("negative_points").toString();
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setMessage(reviweId + "\nDátum:\n" + date + "\nPoužívateľ:\n" + user + "\nHodnotenie:\n" + rating + "\nPopis:\n" + description + "\nPlusy:\n" + posPoints + "\nMínusy:\n" + negPoints + "\n").setTitle("Recenzie").show();
+                        builder.setMessage(reviewId + "\nDátum:\n" + date + "\nPoužívateľ:\n" + user + "\nHodnotenie:\n" + rating + "\nPopis:\n" + description + "\nPlusy:\n" + posPoints + "\nMínusy:\n" + negPoints + "\n").setTitle("Recenzie").show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
                 else if (operation.equals("PRIDAŤ RECENZIU")) {
+                    List<String> childIdList = expandableListDetail.get(expandableListTitle.get(groupPosition));
+                    String childId = "";
+                    for (String element : childIdList)
+                    {
+                        String splitted = element.split(":")[0];
+                        if (splitted.equals("OBĽÚBENÉ") || splitted.equals("PRIDAŤ DO OBĽÚBENÝCH"))
+                        {
+                            childId = element.split(":")[1];
+                            childId = childId.substring(1);
+                        }
+                    }
                     Intent myIntent = new Intent(getContext(), AddReviewActivity.class);
-                    startActivityForResult(myIntent, SECOND_ACTIVITY_REQUEST_CODE);
+                    Bundle b = new Bundle();
+                    b.putString("food_id", childId);
+                    myIntent.putExtras(b);
+                    startActivityForResult(myIntent, ADD_REVIEW_ACTIVITY_REQUEST_CODE);
                 }
                 return false;
             }
