@@ -1,3 +1,9 @@
+# Projekt ITU
+# Autori:
+#   xslesa01 (Michal Šlesár)
+#   xbelko02 (Erik Belko)
+#   xnosko06 (Matúš Nosko)
+
 # Standard library imports
 from typing import List
 from datetime import date

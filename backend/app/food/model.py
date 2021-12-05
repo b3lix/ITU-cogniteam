@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xbelko02 (Erik Belko)
+
 # App related imports
 from app import session
 from app.entities.food import Food, FoodType
@@ -27,6 +31,7 @@ def create_food(name: str, source: str, description: str, type: FoodType, barcod
     session.refresh(food)
     return food
 
+# Get food
 def get_food(filter: FilterModel, user: int):
     query = session.query(Food, func.count(Review.id).label("reviews"), func.avg(Review.rating), func.avg(Review.price))
     query = query.join(Review, Review.food_id == Food.id)
@@ -62,6 +67,7 @@ def get_food(filter: FilterModel, user: int):
 
     return query.all()
 
+# Get food and its reviews by id
 def get_food_by_id(id: int):
     return session.query(Food, func.count(Review.id), func.avg(Review.rating), func.avg(Review.price), Favourite.id)\
         .outerjoin(Favourite)\
@@ -70,6 +76,7 @@ def get_food_by_id(id: int):
         .group_by(Food.id, Favourite.id)\
         .first()
 
+# Toggle favourite on food
 def toggle_favourite(food: int, user: int) -> None:
     favourite: Favourite = Favourite.query.filter(Favourite.user_id == user).filter(Favourite.food_id == food).first()
 

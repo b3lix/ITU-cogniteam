@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xslesa01 (Michal Šlesár)
+
 # Standard library imports
 from typing import List
 from datetime import date
@@ -50,6 +54,7 @@ def update_review(id: int, description: str, positive_points: List[str], negativ
     review.date = date.today()
     session.commit()
 
+# Get all reviews of specific food
 def get_reviews(food: int) -> Review:
     return session.query(Review)\
         .join(Food)\
@@ -57,6 +62,7 @@ def get_reviews(food: int) -> Review:
         .order_by(Review.date.desc())\
         .all()
 
+# Get all user reviews
 def get_user_reviews(user: int) -> Review:
     return session.query(Review)\
         .join(Food)\
@@ -64,6 +70,7 @@ def get_user_reviews(user: int) -> Review:
         .order_by(Review.date.desc())\
         .all()
 
+# Get user review for specfic food
 def get_user_review(food: int, user: int) -> Review:
     return session.query(Review)\
         .join(Food)\

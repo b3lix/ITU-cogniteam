@@ -1,3 +1,9 @@
+# Projekt ITU
+# Autori:
+#   xslesa01 (Michal Šlesár)
+#   xbelko02 (Erik Belko)
+#   xnosko06 (Matúš Nosko)
+
 # SQLalchemy related imports
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship

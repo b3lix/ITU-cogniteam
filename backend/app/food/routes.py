@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xbelko02 (Erik Belko)
+
 # Pydantic related imports
 from typing import List
 
@@ -14,6 +18,7 @@ from app.reviews.model import create_review
 from app.entities.food import Food
 from app.entities.review import Review
 
+# Create meal endpoint
 @bp.route("/create", methods=["POST"])
 @login_required
 @validate()
@@ -29,6 +34,7 @@ def create(body: CreateModel):
 
     return make_response(200)
 
+# Get food endpoint
 @bp.route("/get", methods=["GET"])
 @validate()
 def get(query: FilterModel):
@@ -52,7 +58,8 @@ def get(query: FilterModel):
             }     
         } for food in get_food(query, user)]
     })
-    
+
+# Get specific meal endpoint
 @bp.route("/get/<food_id>", methods=["GET"])
 def get_one(food_id: int):
     food = get_food_by_id(food_id)
@@ -73,10 +80,9 @@ def get_one(food_id: int):
         }
     })
 
+# Toggle favourite on specific food
 @bp.route("/favourite/<food_id>", methods=["POST"])
+@login_required
 def favourite(food_id: int):
-    if not current_user.is_authenticated:
-        return make_response(401)
-
     toggle_favourite(food_id, current_user.id)
     return make_response(200)

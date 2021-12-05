@@ -1,3 +1,7 @@
+# Projekt ITU
+# Autori:
+#   xnosko06 (Matúš Nosko)
+
 # Flask related imports
 from flask_login.utils import logout_user
 from flask_pydantic import validate
@@ -10,6 +14,7 @@ from app.auth.model import authenticate, create_user
 from app.auth.schemas import RegisterModel, LoginModel
 from app.entities.user import User
 
+# Register usuer endpoint
 @bp.route("/register", methods=["POST"])
 @validate()
 def register(body: RegisterModel):
@@ -20,6 +25,7 @@ def register(body: RegisterModel):
 
     return make_response(200)
 
+# Login user endpoint
 @bp.route("/login", methods=["POST"])
 @validate()
 def login(body: LoginModel):
@@ -31,11 +37,13 @@ def login(body: LoginModel):
     login_user(user)
     return make_response(200)
 
+# Logout user endpoint
 @bp.route("/logout", methods=["POST"])
 def logout():
     logout_user()
     return make_response(200)
 
+# User info endpoint
 @bp.route("/info", methods=["GET"])
 @login_required
 def info():
