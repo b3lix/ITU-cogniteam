@@ -19,7 +19,7 @@ Autori:
 							<div style="font-size: 12px;">{{ review.date }}</div>
 							<div style="font-size: 14px;">
 								<font-awesome-icon icon="dollar-sign"></font-awesome-icon> 
-								{{ review.price }} Kč
+								{{ review.price == null ? "Nezadaná" : review.price + "Kč" }}
 							</div>
 						</div>
 						<div class="col-auto">

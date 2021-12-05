@@ -52,7 +52,7 @@ Autori:
         </b-form-group>
         <b-form-group>
           <label>Cena [Kč]:</label>
-          <b-form-input v-model="formData.review.price" type="number" placeholder="Cena" required></b-form-input>
+          <b-form-input v-model="formData.review.price" type="number" placeholder="Cena"></b-form-input>
         </b-form-group>
         <b-form-group>
           <label>Hodnotenie [0-5]:</label>

@@ -13,7 +13,7 @@ Autori:
         <br>
         <p>{{ meal.description }}</p>
         <br>
-        <div><strong>Priemerná cena: <font-awesome-icon icon="dollar-sign"></font-awesome-icon></strong> {{ meal.average.price }} Kč</div>
+        <div><strong>Priemerná cena: <font-awesome-icon icon="dollar-sign"></font-awesome-icon></strong> {{ meal.average.price == null ? "Neznáma" : meal.average.price + "Kč" }}</div>
         <div><strong>Priemerná hodnotenie:</strong> <font-awesome-icon icon="star"></font-awesome-icon> {{ meal.average.rating }} / 5</div>
     </div>
     <hr>
@@ -26,7 +26,7 @@ Autori:
                         <div style="font-size: 12px;">{{ my_review.date }}</div>
                         <div style="font-size: 14px;">
                             <font-awesome-icon icon="dollar-sign"></font-awesome-icon> 
-                            {{ my_review.price }} Kč
+                            {{ my_review.price == null ? "Nezadaná" : my_review.price + "Kč" }}
                         </div>
                     </div>
                     <div class="col-auto">
@@ -169,7 +169,7 @@ Autori:
                         <div style="font-size: 12px;">{{ review.date }}</div>
                         <div style="font-size: 14px;">
                             <font-awesome-icon icon="dollar-sign"></font-awesome-icon> 
-                            {{ review.price }} Kč
+                            {{ review.price == null ? "Nezadaná" : review.price + "Kč" }}
                         </div>
                     </div>
                     <div class="col-auto">
