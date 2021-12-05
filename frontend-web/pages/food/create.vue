@@ -1,3 +1,9 @@
+<!--
+Projekt ITU
+Autori:
+  xslesa01 (Michal Šlesár)
+-->
+
 <template>
   <b-container>
     <b-alert variant="danger" v-show="error !== null" show>
@@ -121,6 +127,7 @@ export default {
     this.step = 0
   },
   methods: {
+    // Create meal
     create() {
       this.$axios.post("food/create", this.formData).then(() => {
         //this.$router.push("/stations");

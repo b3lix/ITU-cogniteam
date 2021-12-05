@@ -1,3 +1,10 @@
+<!--
+Projekt ITU
+Autori:
+  xbelko02 (Erik Belko)
+  xnosko06 (Matúš Nosko)
+-->
+
 <template>
 	<b-container>
     <b-alert v-if="reviews.length == 0" show>
@@ -126,10 +133,12 @@ export default {
     this.fetchData();
   },
   methods: {
+    // Fetch reviews
 	  async fetchData() {
       let result = await this.$axios.get(`/reviews/my`);
       this.reviews = result.data.reviews;
     },
+    // Update review details
 	  updateReview() {
         this.updateError = null;
 

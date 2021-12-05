@@ -1,3 +1,9 @@
+<!--
+Projekt ITU
+Autori:
+  xslesa01 (Michal Šlesár)
+-->
+
 <template>
   <b-container>
     <div v-if="meal != null">
@@ -226,6 +232,7 @@ export default {
     this.fetchData();
   },
   methods: {
+      // Fetch reviews and meal details
       async fetchData() {
         let result = await this.$axios.get(`/food/get/${this.id}`);
         this.meal = result.data;
@@ -238,6 +245,7 @@ export default {
         result = await this.$axios.get(`/reviews/get/${this.id}`);
         this.reviews = result.data.reviews;
       },
+      // Create review
       createReview() {
         this.insertError = null;
 
@@ -248,6 +256,7 @@ export default {
             this.insertError = e.response.data?.message ?? "Nepodarilo sa pridat recenziu";
         });
     },
+    // Update review details
     updateReview() {
         this.updateError = null;
 

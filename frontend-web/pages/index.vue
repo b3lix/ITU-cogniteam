@@ -1,3 +1,9 @@
+<!--
+Projekt ITU
+Autori:
+  xslesa01 (Michal Šlesár)
+-->
+
 <template>
   <b-container>
     <b-alert variant="danger" v-show="error !== null" show>
@@ -61,8 +67,8 @@ export default {
     this.search();
   },
   methods: {
+    // Search food
     search() {
-      console.log("wtf");
       this.error = null;
 
       this.$store.commit("food/clear");
@@ -73,6 +79,7 @@ export default {
         this.error = e.response.data?.message ?? "Nepodarilo sa získať polozky";
       });
     },
+    // Toggle favourite food
     favourite(id) {
       this.$axios.post(`/food/favourite/${id}`).then(response => {
         this.$store.commit("food/favourite", id);
