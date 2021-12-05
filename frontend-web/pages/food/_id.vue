@@ -11,6 +11,8 @@ Autori:
         <div><strong>Zdroj:</strong> {{ meal.source }}</div>
         <div><strong>Typ:</strong> {{ meal.type == "1" ? "Reštaurácia" : "Polotovar" }}</div>
         <br>
+        <div><strong>Počet recenzií: </strong>{{ reviews.length }}</div>
+        <br>
         <p>{{ meal.description }}</p>
         <br>
         <div><strong>Priemerná cena: <font-awesome-icon icon="dollar-sign"></font-awesome-icon></strong> {{ meal.average.price == null ? "Neznáma" : meal.average.price + "Kč" }}</div>
@@ -158,7 +160,7 @@ Autori:
         </b-modal>
     </div>
     <hr>
-    <h3>Všetky recenzie:</h3>
+    <h3>Všetky recenzie ({{ reviews.length }}):</h3>
     <hr>
     <b-row v-for="review in reviews" :key="review.id">
         <div class="col-sm-6 mt-2">
