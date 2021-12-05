@@ -85,6 +85,7 @@ public class ExpandableListDataPump {
                         foodInfo.add(String.format("Priemerná cena: %s", averagePrice));
                         foodInfo.add(String.format("Priemerné hodnotenie: %s/5.00", averageRating));
                         foodInfo.add(String.format("PREZERAŤ REZENCIE"));
+                        foodInfo.add(String.format("PRIDAŤ RECENZIU"));
 
                         String favourite = object.get("favourite").toString();
                         if (favourite.equals("null")) {

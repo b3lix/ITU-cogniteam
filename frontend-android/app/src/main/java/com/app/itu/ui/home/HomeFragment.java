@@ -27,6 +27,7 @@ import com.app.itu.JsonRequest;
 import com.app.itu.R;
 import com.app.itu.Singleton;
 import com.app.itu.databinding.FragmentHomeBinding;
+import com.app.itu.ui.AddReviewActivity;
 import com.app.itu.ui.gallery.GalleryFragment;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -256,7 +257,10 @@ public class HomeFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
+                }
+                else if (operation.equals("PRIDAŤ RECENZIU")) {
+                    Intent myIntent = new Intent(getContext(), AddReviewActivity.class);
+                    startActivityForResult(myIntent, SECOND_ACTIVITY_REQUEST_CODE);
                 }
                 return false;
             }
