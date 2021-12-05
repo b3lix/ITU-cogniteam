@@ -41,9 +41,24 @@ public class ExpandableListDataPump {
                 String date = object.get("date").toString();
                 String rating = object.get("rating").toString();
                 String description = object.get("description").toString();
-                String negPoints = object.get("negative_points").toString();
-                String posPoints = object.get("positive_points").toString();
 
+                StringBuilder posPoints = new StringBuilder();
+                JSONArray jArray = object.getJSONArray("positive_points");
+
+                for(int j=0; j < jArray.length(); j++) {
+                    String json_data = jArray.getString(j);
+                    posPoints.append(json_data + "\n");
+
+                }
+                StringBuilder negPoints = new StringBuilder();
+
+                jArray = object.getJSONArray("negative_points");
+
+                for(int j=0; j < jArray.length(); j++) {
+                    String json_data = jArray.getString(j);
+                    negPoints.append(json_data + "\n");
+
+                }
                 reviewInfo.add(String.format("ID jedla: %s", foodId));
                 reviewInfo.add(String.format("Zdroj: %s", foodSource));
                 reviewInfo.add(String.format("Typ jedla: %s", foodType));

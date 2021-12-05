@@ -41,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.HashMap;
 
@@ -271,9 +272,23 @@ public class HomeFragment extends Fragment {
                                 String user = object.get("user").toString();
                                 String rating = object.get("rating").toString();
                                 String description = object.get("description").toString();
-                                String posPoints = object.get("positive_points").toString();
-                                String negPoints = object.get("negative_points").toString();
+                                StringBuilder posPoints = new StringBuilder();
+                                JSONArray jArray = object.getJSONArray("positive_points");
 
+                                for(int j=0; j < jArray.length(); j++) {
+                                    String json_data = jArray.getString(j);
+                                    posPoints.append(json_data + "\n");
+
+                                }
+                                StringBuilder negPoints = new StringBuilder();
+
+                                jArray = object.getJSONArray("negative_points");
+
+                                for(int j=0; j < jArray.length(); j++) {
+                                    String json_data = jArray.getString(j);
+                                    negPoints.append(json_data + "\n");
+
+                                }
                                 String out = (reviewId + "\nDátum:\n" + date + "\nPoužívateľ:\n" + user + "\nHodnotenie:\n" + rating + "\nPopis:\n" + description + "\nPlusy:\n" + posPoints + "\nMínusy:\n" + negPoints + "\n");
                                 outLong.append("------------\n");
                                 outLong.append(out);
